@@ -1,0 +1,162 @@
+---
+import { fmtFull, type Notice } from '../../lib/notices';
+interface Props {
+  notice: Notice;
+}
+const { notice } = Astro.props;
+const d = notice.data;
+const label = d.categoryLabel ?? d.category;
+---
+
+<div class="detail-a view">
+  <div class="back-bar"><a class="back" href="/notices/">← 공지사항으로</a></div>
+  <div class="body-pad">
+    <span class="cat">{label}</span>
+    <h1 class="title">{d.title}</h1>
+    <div class="meta">
+      <span class="dot"></span>
+      <span>{d.author} · {fmtFull(d.date)}</span>
+    </div>
+    <div class="rule"></div>
+    {d.summary && <p class="summary">{d.summary}</p>}
+    {
+      d.info.length > 0 && (
+        <div class="info">
+          {d.info.map((row, i) => (
+            <div class={`info-row ${i < d.info.length - 1 ? 'dashed' : ''}`}>
+              <span class="info-label">{row.label}</span>
+              <span class="info-value">{row.value}</span>
+            </div>
+          ))}
+        </div>
+      )
+    }
+    <div class="content">
+      <slot />
+    </div>
+    {
+      d.tags.length > 0 && (
+        <div class="tags">
+          {d.tags.map((t) => (
+            <span class="tag">#{t}</span>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</div>
+
+<style>
+  .detail-a {
+    background: var(--cream-a);
+  }
+  .back-bar {
+    padding: 20px 28px 0;
+  }
+  .back {
+    font-family: 'Jua', sans-serif;
+    font-size: 14px;
+    color: var(--ink-soft2);
+  }
+  .body-pad {
+    padding: 20px 28px 40px;
+  }
+  .cat {
+    display: inline-block;
+    font-family: 'Jua', sans-serif;
+    font-size: 13px;
+    color: #fff;
+    background: var(--coral);
+    padding: 6px 14px;
+    border-radius: 999px;
+  }
+  .title {
+    font-family: 'Jua', sans-serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.3;
+    color: var(--ink);
+    margin: 14px 0 10px;
+  }
+  .meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  .dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--yellow);
+  }
+  .rule {
+    height: 1px;
+    background: var(--hairline-dash);
+    margin: 20px 0;
+  }
+  .summary {
+    font-size: 15px;
+    line-height: 1.95;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .info {
+    margin-top: 18px;
+    background: #fff;
+    border-radius: 18px;
+    padding: 18px 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  .info-row {
+    display: flex;
+    gap: 10px;
+    padding: 9px 0;
+  }
+  .info-row.dashed {
+    border-bottom: 1px dashed var(--hairline-dash);
+  }
+  .info-label {
+    font-family: 'Jua', sans-serif;
+    font-size: 14px;
+    color: var(--coral);
+    width: 48px;
+    flex: none;
+  }
+  .info-value {
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .content {
+    font-size: 15px;
+    line-height: 1.95;
+    color: var(--ink-soft);
+    margin-top: 18px;
+  }
+  .content :global(p) {
+    margin: 0 0 1em;
+  }
+  .content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  .content :global(a) {
+    color: var(--teal-deep);
+    text-decoration: underline;
+  }
+  .tags {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-family: 'Jua', sans-serif;
+    font-size: 13px;
+    color: var(--teal-deep);
+    background: var(--teal-tint);
+    padding: 6px 13px;
+    border-radius: 999px;
+  }
+</style>

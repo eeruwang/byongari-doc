@@ -1,0 +1,28 @@
+---
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import DetailA from '../../components/themeA/DetailA.astro';
+import DetailB from '../../components/themeB/DetailB.astro';
+import DetailC from '../../components/themeC/DetailC.astro';
+import { getSortedNotices, type Notice } from '../../lib/notices';
+
+export async function getStaticPaths() {
+  const notices = await getSortedNotices();
+  return notices.map((notice) => ({
+    params: { slug: notice.id },
+    props: { notice },
+  }));
+}
+
+interface Props {
+  notice: Notice;
+}
+const { notice } = Astro.props;
+const { Content } = await render(notice);
+---
+
+<Base title={notice.data.title} description={notice.data.summary}>
+  <div class="theme-block t-a"><DetailA notice={notice}><Content /></DetailA></div>
+  <div class="theme-block t-b"><DetailB notice={notice}><Content /></DetailB></div>
+  <div class="theme-block t-c"><DetailC notice={notice}><Content /></DetailC></div>
+</Base>

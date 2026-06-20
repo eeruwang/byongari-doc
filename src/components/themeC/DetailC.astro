@@ -1,0 +1,168 @@
+---
+import { fmtFull, type Notice } from '../../lib/notices';
+interface Props {
+  notice: Notice;
+}
+const { notice } = Astro.props;
+const d = notice.data;
+const label = d.categoryLabel ?? d.category;
+const infoColors = ['#EC5B41', '#46AEA6', '#2E5FC6'];
+const tagColors = ['#46AEA6', '#F4C64A', '#2E5FC6'];
+---
+
+<div class="detail-c view">
+  <div class="head">
+    <a class="back" href="/notices/">← 공지사항</a>
+    <span class="cat">{label}</span>
+    <h1 class="title">{d.title}</h1>
+    <div class="meta">{d.author} · {fmtFull(d.date)}</div>
+  </div>
+  <div class="body-pad">
+    {d.summary && <p class="summary">{d.summary}</p>}
+    {
+      d.info.length > 0 && (
+        <div class="info">
+          {d.info.map((row, i) => (
+            <div class="info-row">
+              <span class="info-label" style={`background:${infoColors[i % infoColors.length]}`}>
+                {row.label}
+              </span>
+              <span class="info-value">{row.value}</span>
+            </div>
+          ))}
+        </div>
+      )
+    }
+    <div class="content">
+      <slot />
+    </div>
+    {
+      d.tags.length > 0 && (
+        <div class="tags">
+          {d.tags.map((t, i) => (
+            <span class="tag" style={`background:${tagColors[i % tagColors.length]}`}>
+              #{t}
+            </span>
+          ))}
+        </div>
+      )
+    }
+    <a class="back-btn" href="/notices/">목록으로 돌아가기</a>
+  </div>
+</div>
+
+<style>
+  .detail-c {
+    background: var(--cream-c);
+  }
+  .head {
+    padding: 30px 28px 26px;
+    background: var(--coral);
+  }
+  .back {
+    font-family: 'Jua', sans-serif;
+    font-size: 14px;
+    color: #ffd9cf;
+  }
+  .cat {
+    display: inline-block;
+    font-family: 'Jua', sans-serif;
+    font-size: 13px;
+    color: var(--coral);
+    background: #fff;
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-top: 14px;
+  }
+  .title {
+    font-family: 'Jua', sans-serif;
+    font-weight: 400;
+    font-size: 28px;
+    line-height: 1.3;
+    color: #fff;
+    margin: 12px 0 0;
+  }
+  .meta {
+    font-family: 'Jua', sans-serif;
+    font-size: 14px;
+    color: #ffd9cf;
+    margin-top: 8px;
+  }
+  .body-pad {
+    padding: 28px;
+  }
+  .summary {
+    font-size: 15px;
+    line-height: 1.95;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .info {
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .info-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: var(--cream-c2);
+    border-radius: 14px;
+    padding: 13px 17px;
+  }
+  .info-label {
+    font-family: 'Jua', sans-serif;
+    font-size: 12px;
+    color: #fff;
+    padding: 4px 11px;
+    border-radius: 999px;
+    flex: none;
+  }
+  .info-value {
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .content {
+    font-size: 15px;
+    line-height: 1.95;
+    color: var(--ink-soft);
+    margin-top: 18px;
+  }
+  .content :global(p) {
+    margin: 0 0 1em;
+  }
+  .content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  .content :global(a) {
+    color: var(--teal-deep);
+    text-decoration: underline;
+  }
+  .tags {
+    display: flex;
+    gap: 8px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-family: 'Jua', sans-serif;
+    font-size: 13px;
+    color: #fff;
+    padding: 6px 13px;
+    border-radius: 999px;
+  }
+  .back-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 24px;
+    font-family: 'Jua', sans-serif;
+    font-size: 15px;
+    color: #fff;
+    background: var(--coral);
+    padding: 13px;
+    border-radius: 999px;
+    box-shadow: 0 4px 0 var(--coral-shadow);
+  }
+</style>

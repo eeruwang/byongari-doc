@@ -1,0 +1,600 @@
+---
+import { site } from '../../data/site';
+import { fmtShort, type Notice } from '../../lib/notices';
+import Chick from '../Chick.astro';
+
+interface Props {
+  recent: Notice[];
+}
+const { recent } = Astro.props;
+const stepColors = ['#F4C64A', '#46AEA6', '#EC5B41'];
+const stepShadow = ['#d6a531', '#2E8C86', '#c8462f'];
+const stepFg = ['#3c4a3f', '#fff', '#fff'];
+const staffColors = ['#F4C64A', '#46AEA6', '#EC5B41'];
+const staffFg = ['#3c4a3f', '#fff', '#fff'];
+---
+
+<div class="home-a">
+  {/* hero */}
+  <section class="hero">
+    <div class="eyebrow">{site.tagline}</div>
+    <h1 class="title" set:html={site.hero.a.title} />
+    <p class="sub" set:html={site.hero.a.sub} />
+    <div class="cta">
+      <a class="btn-yellow" href={site.links.signup}>가입 신청하기</a>
+      <a class="btn-ghost" href={site.links.discord}>디스코드</a>
+    </div>
+    <div class="scene">
+      <div class="house">
+        <div class="roof"></div>
+        <div class="body">
+          <div class="win"></div>
+          <div class="door"></div>
+          <div class="win"></div>
+        </div>
+      </div>
+      <div class="chicks">
+        <Chick size={56} />
+        <Chick size={64} />
+        <Chick size={48} />
+      </div>
+    </div>
+  </section>
+
+  {/* about */}
+  <section class="pad">
+    <div class="kicker">서버 소개 · About</div>
+    <h2 class="h2">{site.about.title}</h2>
+    <p class="body">{site.about.bodyA}</p>
+    <p class="body-en">{site.about.subEn}</p>
+    <div class="chips">
+      <span class="chip chip-teal">{site.concepts[0].ko} {site.concepts[0].en}</span>
+      <span class="chip chip-coral">{site.concepts[1].ko} {site.concepts[1].en}</span>
+      <span class="chip chip-yellow">{site.concepts[2].ko} {site.concepts[2].en}</span>
+    </div>
+  </section>
+
+  {/* notices */}
+  <section class="pad">
+    <div class="kicker">공지사항 · Notices</div>
+    <div class="notice-list">
+      {
+        recent.map((n) => (
+          <a class="notice-row" href={`/notices/${n.id}/`}>
+            <span class="nr-left">
+              <span class="nr-date">{fmtShort(n.data.date)}</span>
+              <span class="nr-title">{n.data.title}</span>
+            </span>
+            <span class="chev">›</span>
+          </a>
+        ))
+      }
+    </div>
+    <a class="more-btn" href="/notices/">전체 공지 보기 →</a>
+  </section>
+
+  {/* join */}
+  <section class="pad">
+    <div class="kicker">가입 방법 · How to join</div>
+    <div class="steps">
+      {
+        site.join.map((s, i) => (
+          <div class="step">
+            <div
+              class="badge"
+              style={`background:${stepColors[i]};color:${stepFg[i]};box-shadow:0 3px 0 ${stepShadow[i]}`}
+            >
+              {i + 1}
+            </div>
+            <div>
+              <div class="step-title">{s.title}</div>
+              <div class="step-desc">{s.desc}</div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* rules */}
+  <section class="pad">
+    <div class="kicker">서버 규칙 · Rules</div>
+    <div class="rules">
+      {
+        site.rules.map((r, i) => (
+          <div class={`rule ${i < site.rules.length - 1 ? 'dashed' : ''}`}>
+            <span class="heart">♡</span>
+            <span>{r}</span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* staff */}
+  <section class="pad">
+    <div class="kicker">운영진 · Staff</div>
+    <div class="staff">
+      {
+        site.staff.map((m, i) => (
+          <div class="staff-row">
+            <div class="avatar" style={`background:${staffColors[i]};color:${staffFg[i]}`}>
+              {m.initial}
+            </div>
+            <div>
+              <div class="staff-handle">{m.handle}</div>
+              <div class="staff-role">{m.role}</div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* support */}
+  <section class="pad">
+    <div class="support">
+      <div class="kicker coral">후원 · Support</div>
+      <div class="support-title">둥지를 함께 지켜주세요</div>
+      <p class="support-body">
+        서버는 매달 약 <b>{site.support.amount}</b> 의 비용으로 운영돼요.<br />
+        {site.support.note}
+      </p>
+      <a class="btn-coral" href={site.support.url}>후원하기</a>
+    </div>
+  </section>
+
+  {/* faq */}
+  <section class="pad">
+    <div class="kicker">자주 묻는 질문 · FAQ</div>
+    <div class="faq">
+      {
+        site.faq.map((f) => (
+          <div class="faq-item">
+            <div class="faq-q">Q. {f.q}</div>
+            <div class="faq-a">{f.a}</div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* links / footer */}
+  <section class="pad foot">
+    <div class="foot-links">
+      <a class="btn-yellow sm" href={site.links.signup}>가입 신청</a>
+      <a class="btn-discord sm" href={site.links.discord}>디스코드</a>
+      <a class="btn-teal sm" href={site.links.status}>서버 상태</a>
+    </div>
+    <div class="copyright">{site.name} · 작은 둥지에서 · {site.nameEn}</div>
+  </section>
+</div>
+
+<style>
+  .home-a {
+    background: var(--cream-a);
+  }
+  .pad {
+    padding: 30px 28px 6px;
+  }
+  .kicker {
+    font-family: 'Gaegu', cursive;
+    font-weight: 700;
+    color: var(--coral);
+    font-size: 15px;
+  }
+  .kicker.coral {
+    color: var(--coral-shadow);
+  }
+  .h2 {
+    font-family: 'Jua', sans-serif;
+    font-size: 26px;
+    color: var(--ink);
+    margin: 6px 0 12px;
+    font-weight: 400;
+  }
+  .body {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  .body-en {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 13px;
+    color: var(--ink-soft3);
+    margin-top: 8px;
+    line-height: 1.5;
+  }
+
+  /* hero */
+  .hero {
+    position: relative;
+    padding: 34px 28px 0;
+    background: linear-gradient(180deg, #46aea6 0%, #5ba864 100%);
+  }
+  .eyebrow {
+    font-family: 'Gaegu', cursive;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--cream-a);
+  }
+  .title {
+    font-family: 'Jua', sans-serif;
+    font-size: 46px;
+    line-height: 1.15;
+    color: #fffdf6;
+    margin: 8px 0 0;
+    font-weight: 400;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
+  }
+  .sub {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 14px;
+    color: #eaf6ec;
+    margin-top: 12px;
+    line-height: 1.5;
+  }
+  .cta {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .btn-yellow {
+    font-family: 'Jua', sans-serif;
+    font-size: 15px;
+    color: #3c4a3f;
+    background: var(--yellow);
+    padding: 12px 22px;
+    border-radius: 999px;
+    box-shadow: 0 4px 0 var(--yellow-shadow);
+  }
+  .btn-yellow.sm {
+    font-size: 14px;
+    padding: 10px 18px;
+    box-shadow: 0 3px 0 var(--yellow-shadow);
+  }
+  .btn-ghost {
+    font-family: 'Jua', sans-serif;
+    font-size: 15px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.18);
+    border: 2px solid rgba(255, 255, 255, 0.7);
+    padding: 10px 20px;
+    border-radius: 999px;
+  }
+  .btn-discord {
+    font-family: 'Jua', sans-serif;
+    color: #fff;
+    background: var(--discord);
+    box-shadow: 0 3px 0 var(--discord-shadow);
+    border-radius: 999px;
+  }
+  .btn-discord.sm {
+    font-size: 14px;
+    padding: 10px 18px;
+  }
+  .btn-teal {
+    font-family: 'Jua', sans-serif;
+    color: #fff;
+    background: var(--teal);
+    box-shadow: 0 3px 0 var(--teal-deep);
+    border-radius: 999px;
+  }
+  .btn-teal.sm {
+    font-size: 14px;
+    padding: 10px 18px;
+  }
+  .btn-coral {
+    display: inline-block;
+    font-family: 'Jua', sans-serif;
+    font-size: 15px;
+    color: #fff;
+    background: var(--coral);
+    padding: 11px 24px;
+    border-radius: 999px;
+    box-shadow: 0 4px 0 var(--coral-shadow);
+  }
+
+  /* hero scene */
+  .scene {
+    position: relative;
+    height: 150px;
+    margin-top: 20px;
+  }
+  .house {
+    position: absolute;
+    right: 10px;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.12));
+  }
+  .roof {
+    width: 0;
+    height: 0;
+    border-left: 82px solid transparent;
+    border-right: 82px solid transparent;
+    border-bottom: 46px solid var(--roof-blue);
+  }
+  .house .body {
+    width: 142px;
+    height: 78px;
+    margin-top: -1px;
+    background: linear-gradient(90deg, #f4c64a, #eba93a);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 16px;
+    padding-top: 16px;
+  }
+  .win {
+    width: 24px;
+    height: 28px;
+    background: var(--cream-a);
+    border: 3px solid #fff;
+    border-radius: 4px;
+  }
+  .door {
+    width: 30px;
+    height: 44px;
+    background: #a99a8b;
+    border: 3px solid #fff;
+    border-bottom: none;
+    border-radius: 5px 5px 0 0;
+  }
+  .chicks {
+    position: absolute;
+    left: 0;
+    bottom: 2px;
+    display: flex;
+    align-items: flex-end;
+    gap: 9px;
+  }
+
+  /* chips */
+  .chips {
+    display: flex;
+    gap: 8px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    font-family: 'Jua', sans-serif;
+    font-size: 14px;
+    padding: 7px 15px;
+    border-radius: 999px;
+  }
+  .chip-teal {
+    color: var(--teal-deep);
+    background: var(--teal-tint);
+  }
+  .chip-coral {
+    color: var(--coral-shadow);
+    background: #fbe3dc;
+  }
+  .chip-yellow {
+    color: #b6892a;
+    background: #fbefc9;
+  }
+
+  /* notices */
+  .notice-list {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .notice-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: #fff;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  }
+  .notice-row:first-child {
+    border-radius: 14px 14px 2px 2px;
+  }
+  .notice-row:last-child {
+    border-radius: 2px 2px 14px 14px;
+  }
+  .nr-left {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+    min-width: 0;
+  }
+  .nr-date {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 13px;
+    color: var(--coral);
+    white-space: nowrap;
+  }
+  .nr-title {
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .chev {
+    color: #cdbfa3;
+  }
+  .more-btn {
+    display: block;
+    text-align: center;
+    margin-top: 12px;
+    width: 100%;
+    font-family: 'Jua', sans-serif;
+    font-size: 14px;
+    color: var(--coral);
+    background: #fff;
+    border: 2px solid #f6d8cf;
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  /* steps */
+  .steps {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .step {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    background: #fff;
+    border-radius: 16px;
+    padding: 15px 17px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  .badge {
+    font-family: 'Jua', sans-serif;
+    width: 32px;
+    height: 32px;
+    flex: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .step-title {
+    font-family: 'Jua', sans-serif;
+    font-size: 16px;
+    color: var(--ink);
+  }
+  .step-desc {
+    font-size: 14px;
+    color: var(--ink-soft2);
+    margin-top: 2px;
+  }
+
+  /* rules */
+  .rules {
+    margin-top: 12px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 6px 18px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  .rule {
+    display: flex;
+    gap: 10px;
+    padding: 13px 0;
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .rule.dashed {
+    border-bottom: 1px dashed var(--hairline-dash);
+  }
+  .heart {
+    color: var(--teal);
+  }
+
+  /* staff */
+  .staff {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .staff-row {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    background: #fff;
+    border-radius: 16px;
+    padding: 13px 17px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  .avatar {
+    width: 42px;
+    height: 42px;
+    flex: none;
+    border-radius: 50%;
+    font-family: 'Jua', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .staff-handle {
+    font-family: 'Jua', sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .staff-role {
+    font-size: 13px;
+    color: var(--ink-soft3);
+  }
+
+  /* support */
+  .support {
+    background: linear-gradient(180deg, #fbefc9, #f7e6b0);
+    border-radius: 22px;
+    padding: 26px;
+    text-align: center;
+  }
+  .support-title {
+    font-family: 'Jua', sans-serif;
+    font-size: 22px;
+    color: var(--ink);
+    margin: 6px 0 8px;
+  }
+  .support-body {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--ink-soft2);
+    margin: 0 0 16px;
+  }
+  .support-body b {
+    color: var(--ink);
+  }
+
+  /* faq */
+  .faq {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .faq-item {
+    background: #fff;
+    border-radius: 14px;
+    padding: 15px 17px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  .faq-q {
+    font-family: 'Jua', sans-serif;
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .faq-a {
+    font-size: 14px;
+    color: var(--ink-soft2);
+    margin-top: 4px;
+  }
+
+  /* footer */
+  .foot {
+    padding: 30px 28px 40px;
+  }
+  .foot-links {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .foot-links a {
+    padding: 10px 18px;
+  }
+  .copyright {
+    text-align: center;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 26px;
+  }
+</style>

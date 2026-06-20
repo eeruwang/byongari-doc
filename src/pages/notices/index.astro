@@ -1,0 +1,15 @@
+---
+import Base from '../../layouts/Base.astro';
+import ListA from '../../components/themeA/ListA.astro';
+import ListB from '../../components/themeB/ListB.astro';
+import ListC from '../../components/themeC/ListC.astro';
+import { getSortedNotices } from '../../lib/notices';
+
+const notices = await getSortedNotices();
+---
+
+<Base title="공지사항">
+  <div class="theme-block t-a"><ListA notices={notices} /></div>
+  <div class="theme-block t-b"><ListB notices={notices} /></div>
+  <div class="theme-block t-c"><ListC notices={notices} /></div>
+</Base>

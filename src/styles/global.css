@@ -1,0 +1,194 @@
+/* =============================================================
+   디자인 토큰 (핸드오프 문서 기준)
+   ============================================================= */
+:root {
+  /* teal */
+  --teal: #46aea6;
+  --teal-deep: #2e8c86;
+  --teal-tint: #dcf0e9;
+  --teal-tint2: #e5f4f1;
+  --grass: #5ba864;
+  /* yellow */
+  --yellow: #f4c64a;
+  --yellow-deep: #eba93a;
+  --yellow-shadow: #d6a531;
+  /* blue */
+  --roof-blue: #2e5fc6;
+  /* coral */
+  --coral: #ec5b41;
+  --coral-shadow: #c8462f;
+  /* pink */
+  --pink: #f3b0a0;
+  /* ink / text */
+  --ink: #3c4a3f;
+  --ink2: #2f3a31;
+  --ink-soft: #55604f;
+  --ink-soft2: #6b7565;
+  --ink-soft3: #8a917f;
+  --muted: #a59f8c;
+  --muted2: #a3a99c;
+  /* surfaces */
+  --cream-a: #fbf4e2;
+  --cream-b: #fcfbf6;
+  --cream-c: #fffdf6;
+  --cream-c2: #fff6e2;
+  --outer: #ebe6d6;
+  --hairline: #efece1;
+  --hairline2: #e7ddc6;
+  --hairline-dash: #ece6d2;
+  /* discord */
+  --discord: #5865f2;
+  --discord-shadow: #3c46b8;
+
+  --col: 600px;
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  margin: 0;
+}
+body {
+  font-family: 'Gowun Dodum', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: var(--outer);
+  color: var(--ink);
+}
+a {
+  text-decoration: none;
+}
+button {
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+}
+
+/* 중앙 600px 컬럼 */
+.column {
+  width: 100%;
+  max-width: var(--col);
+  margin: 0 auto;
+}
+
+/* =============================================================
+   테마 전환 — html[data-theme] 기준으로 해당 테마 블록만 노출
+   (모든 테마 마크업을 함께 렌더 → 클릭 시 즉시 전환, JS 왕복 없음)
+   ============================================================= */
+.theme-block {
+  display: none;
+}
+html[data-theme='a'] .theme-block.t-a,
+html[data-theme='b'] .theme-block.t-b,
+html[data-theme='c'] .theme-block.t-c {
+  display: block;
+}
+
+/* =============================================================
+   글로벌 스티키 헤더 + 테마 스위처
+   ============================================================= */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: center;
+  background: rgba(251, 244, 226, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--hairline2);
+}
+.site-header .inner {
+  width: 100%;
+  max-width: var(--col);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 11px 18px;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.brand-name {
+  font-family: 'Jua', sans-serif;
+  font-size: 18px;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
+/* 세그먼트 스위처 */
+.switcher {
+  display: flex;
+  gap: 4px;
+  background: #f0e8d3;
+  padding: 4px;
+  border-radius: 999px;
+  flex: none;
+}
+.switcher button {
+  font-family: 'Jua', sans-serif;
+  font-size: 12px;
+  padding: 6px 13px;
+  border-radius: 999px;
+  white-space: nowrap;
+  background: transparent;
+  color: #7a7a72;
+  transition: background 0.15s, color 0.15s;
+}
+html[data-theme='a'] .switcher .seg-a,
+html[data-theme='b'] .switcher .seg-b,
+html[data-theme='c'] .switcher .seg-c {
+  background: var(--coral);
+  color: #fff;
+}
+
+/* 병아리 미니 로고 */
+.chick-logo {
+  position: relative;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, #f8e25c, #f2ce3e);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.12);
+}
+.chick-logo i {
+  position: absolute;
+  background: #2b2b2b;
+}
+.chick-logo .eye-l {
+  top: 9px;
+  left: 6px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+}
+.chick-logo .eye-r {
+  top: 9px;
+  right: 6px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+}
+.chick-logo .beak {
+  top: 13px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 4px;
+  height: 4px;
+  background: #ee7e5a;
+}
+
+/* 공용: 페이지 최소 높이 */
+.view {
+  min-height: 80vh;
+}
+
+/* 접근성: 모션 줄이기 */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,16 @@
+---
+import Base from '../layouts/Base.astro';
+import HomeA from '../components/themeA/HomeA.astro';
+import HomeB from '../components/themeB/HomeB.astro';
+import HomeC from '../components/themeC/HomeC.astro';
+import { getSortedNotices } from '../lib/notices';
+
+const notices = await getSortedNotices();
+const recent = notices.slice(0, 3);
+---
+
+<Base>
+  <div class="theme-block t-a"><HomeA recent={recent} /></div>
+  <div class="theme-block t-b"><HomeB recent={recent} /></div>
+  <div class="theme-block t-c"><HomeC recent={recent} /></div>
+</Base>
