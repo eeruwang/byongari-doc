@@ -1,0 +1,40 @@
+---
+// 운영진 아바타. avatar 이미지가 있으면 사진을, 없거나 로드 실패 시 이니셜을 보여줍니다.
+interface Props {
+  initial: string;
+  bg: string;
+  fg?: string;
+  size?: number;
+  avatar?: string;
+  alt?: string;
+}
+const { initial, bg, fg = '#3c4a3f', size = 42, avatar, alt = '' } = Astro.props;
+---
+
+<span
+  class="avatar"
+  style={`width:${size}px;height:${size}px;background:${bg};color:${fg};font-size:${Math.round(size * 0.38)}px`}
+>
+  {initial}
+  {avatar && <img src={avatar} alt={alt} loading="lazy" onerror="this.remove()" />}
+</span>
+
+<style>
+  .avatar {
+    position: relative;
+    flex: none;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Jua', sans-serif;
+    overflow: hidden;
+  }
+  .avatar img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>

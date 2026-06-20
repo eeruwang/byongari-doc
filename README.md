@@ -98,17 +98,30 @@ pinned: false             # (선택) 상단 고정
 
 정적 사이트라 서버 런타임/어댑터가 필요 없고, 무료 티어로 충분해요.
 
-### Sveltia 인증 설정 (최초 1회)
+### 관리자 로그인(OAuth) 설정 — 최초 1회
 
-`/admin` 에서 GitHub 로그인을 하려면 OAuth 중개가 필요해요. 가장 간단한 방법:
+`/admin` 의 GitHub 로그인은 **사이트 Worker(`worker/index.js`)가 직접 처리**해요.
+별도 인증 서버를 띄울 필요 없이, 아래 두 가지만 등록하면 끝납니다.
 
-1. **GitHub → Settings → Developer settings → OAuth Apps → New OAuth App** 생성
-   - Authorization callback URL: 아래 워커 주소 + `/callback`
-2. [`sveltia-cms-auth`](https://github.com/sveltia/sveltia-cms-auth) 워커를 Cloudflare Workers에 배포하고
-   `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` 환경변수를 설정.
-3. `public/admin/config.yml` 의 `backend.base_url` 주석을 풀고 워커 주소를 입력.
+1. **GitHub OAuth App 생성**
+   `GitHub → Settings → Developer settings → OAuth Apps → New OAuth App`
+   - Homepage URL: `https://notice.byongari.com`
+   - **Authorization callback URL**: `https://notice.byongari.com/callback`
+   - 만들면 **Client ID** 와 **Client secret(Generate)** 을 얻어요.
 
-> 자세한 단계는 Sveltia CMS 문서를 참고하세요: <https://github.com/sveltia/sveltia-cms>
+2. **Cloudflare Worker에 시크릿 등록**
+   대시보드 → 해당 Worker → **Settings → Variables and Secrets** 에서 두 개 추가:
+   - `GITHUB_CLIENT_ID`
+   - `GITHUB_CLIENT_SECRET`
+
+   또는 CLI:
+   ```bash
+   npx wrangler secret put GITHUB_CLIENT_ID
+   npx wrangler secret put GITHUB_CLIENT_SECRET
+   ```
+
+등록 후 `https://notice.byongari.com/admin/` 에서 **Login with GitHub** → 바로 공지 작성 가능.
+(레포 쓰기 권한이 필요해 OAuth scope는 `repo` 입니다.)
 
 ---
 

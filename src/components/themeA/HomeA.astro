@@ -2,6 +2,7 @@
 import { site } from '../../data/site';
 import { fmtShort, type Notice } from '../../lib/notices';
 import Chick from '../Chick.astro';
+import Avatar from '../Avatar.astro';
 
 interface Props {
   recent: Notice[];
@@ -118,9 +119,14 @@ const staffFg = ['#3c4a3f', '#fff', '#fff'];
       {
         site.staff.map((m, i) => (
           <div class="staff-row">
-            <div class="avatar" style={`background:${staffColors[i]};color:${staffFg[i]}`}>
-              {m.initial}
-            </div>
+            <Avatar
+              initial={m.initial}
+              bg={staffColors[i]}
+              fg={staffFg[i]}
+              size={42}
+              avatar={m.avatar}
+              alt={m.handle}
+            />
             <div>
               <div class="staff-handle">{m.handle}</div>
               <div class="staff-role">{m.role}</div>

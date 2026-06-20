@@ -2,7 +2,10 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "byongari-doc",
   "compatibility_date": "2026-06-20",
+  // 정적 자산 + /auth·/callback 만 처리하는 OAuth Worker
+  "main": "worker/index.js",
   "assets": {
-    "directory": "./dist"
+    "directory": "./dist",
+    "binding": "ASSETS"
   }
 }

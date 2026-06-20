@@ -7,9 +7,9 @@ backend:
   name: github
   repo: eeruwang/byongari-doc # 레포 (owner/name)
   branch: main # 공지를 커밋할 브랜치 (배포 대상)
-  # GitHub 로그인을 위한 OAuth가 필요합니다. (README의 'Sveltia 인증 설정' 참고)
-  # Cloudflare Workers로 sveltia-cms-auth를 띄운 뒤 아래 줄의 주석을 풀고 URL을 넣으세요.
-  # base_url: https://your-auth-worker.workers.dev
+  # 사이트 Worker(worker/index.js)가 OAuth를 직접 처리하므로 같은 도메인을 사용합니다.
+  base_url: https://notice.byongari.com
+  auth_endpoint: /auth
 
 # 로컬에서 `npx @sveltia/cms-proxy-server` 로 띄우면 GitHub 없이 바로 편집 가능
 local_backend: true
