@@ -1,5 +1,5 @@
 ---
-import { fmtFull, type Notice } from '../../lib/notices';
+import { fmtFull, categoryColor, type Notice } from '../../lib/notices';
 interface Props {
   notices: Notice[];
 }
@@ -17,7 +17,7 @@ const { notices } = Astro.props;
           <a class="row" href={`/notices/${n.id}/`}>
             <div class="row-main">
               <div class="row-meta">
-                <span class="cat">{n.data.category}</span>
+                <span class="cat" style={`background:${categoryColor(n.data.category)}`}>{n.data.category}</span>
                 <span class="date">{fmtFull(n.data.date)}</span>
               </div>
               <div class="row-title">{n.data.title}</div>

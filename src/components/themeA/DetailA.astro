@@ -1,5 +1,5 @@
 ---
-import { fmtFull, type Notice } from '../../lib/notices';
+import { fmtFull, categoryColor, type Notice } from '../../lib/notices';
 interface Props {
   notice: Notice;
 }
@@ -11,7 +11,7 @@ const label = d.categoryLabel ?? d.category;
 <div class="detail-a view">
   <div class="back-bar"><a class="back" href="/notices/">← 공지사항으로</a></div>
   <div class="body-pad">
-    <span class="cat">{label}</span>
+    <span class="cat" style={`background:${categoryColor(d.category)}`}>{label}</span>
     <h1 class="title">{d.title}</h1>
     <div class="meta">
       <span class="dot"></span>

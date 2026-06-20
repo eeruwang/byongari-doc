@@ -27,3 +27,16 @@ export function fmtShort(d: Date): string {
 export function fmtKorean(d: Date): string {
   return `${d.getFullYear()}년 ${d.getMonth() + 1}월 ${d.getDate()}일`;
 }
+
+// 카테고리별 대표 색 (흰 글씨 칩 기준으로 대비가 나오는 색들)
+const CATEGORY_COLORS: Record<string, string> = {
+  점검: '#EC5B41', // coral
+  업데이트: '#46AEA6', // teal
+  안내: '#2E5FC6', // blue
+  이벤트: '#EBA93A', // orange
+};
+
+/** 카테고리 칩 배경/강조 색. 미정의 카테고리는 teal로 폴백. */
+export function categoryColor(cat: string): string {
+  return CATEGORY_COLORS[cat] ?? '#46AEA6';
+}

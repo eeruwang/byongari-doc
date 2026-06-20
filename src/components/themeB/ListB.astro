@@ -1,5 +1,5 @@
 ---
-import { fmtShort, type Notice } from '../../lib/notices';
+import { fmtShort, categoryColor, type Notice } from '../../lib/notices';
 interface Props {
   notices: Notice[];
 }
@@ -19,7 +19,7 @@ const { notices } = Astro.props;
               <span class="date">{fmtShort(n.data.date)}</span>
               <span class="row-title">{n.data.title}</span>
             </div>
-            <span class="cat">{n.data.category}</span>
+            <span class="cat" style={`color:${categoryColor(n.data.category)}`}>{n.data.category}</span>
           </a>
         ))
       }
