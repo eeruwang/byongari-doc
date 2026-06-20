@@ -13,5 +13,8 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.2.1",
     "astro": "^5.2.5"
+  },
+  "devDependencies": {
+    "@sveltia/cms": "^0.167.3"
   }
 }
