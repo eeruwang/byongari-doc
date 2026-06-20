@@ -5,5 +5,13 @@
   // 정적 자산만 서빙(서버/워커 불필요). 공지 편집은 Pages CMS가 담당.
   "assets": {
     "directory": "./dist"
+  "observability": {
+    "enabled": true
+  },
+  "main": "dist/_worker.js/index.js",
+  "compatibility_flags": [
+    "global_fetch_strictly_public",
+    "nodejs_compat"
+  ],
   }
 }
