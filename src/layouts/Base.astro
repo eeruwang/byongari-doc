@@ -1,0 +1,83 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const {
+  title,
+  description = '작고 다정한 미스키 체리픽 서버 노란집의 공지·안내 사이트',
+} = Astro.props;
+const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.nameEn}`;
+---
+
+<!doctype html>
+<html lang="ko" data-theme="a">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/png" href="/chick-favicon.png" />
+    <link rel="canonical" href={Astro.url.href} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#46AEA6" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jua&family=Gowun+Dodum&family=Gaegu:wght@400;700&family=Fredoka:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    {/* 테마를 paint 전에 적용 — 깜빡임(FOUC) 방지 */}
+    <script is:inline>
+      (function () {
+        try {
+          var t = localStorage.getItem('yh-theme');
+          if (t === 'a' || t === 'b' || t === 'c') {
+            document.documentElement.setAttribute('data-theme', t);
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="inner">
+        <a class="brand" href="/" aria-label={site.name}>
+          <span class="chick-logo">
+            <i class="eye-l"></i><i class="eye-r"></i><i class="beak"></i>
+          </span>
+          <span class="brand-name">{site.name}</span>
+        </a>
+        <div class="switcher" role="group" aria-label="테마 선택">
+          <button type="button" class="seg-a" data-theme-pick="a">그림책</button>
+          <button type="button" class="seg-b" data-theme-pick="b">미니멀</button>
+          <button type="button" class="seg-c" data-theme-pick="c">팝</button>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <script is:inline>
+      document.querySelectorAll('[data-theme-pick]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var t = btn.getAttribute('data-theme-pick');
+          document.documentElement.setAttribute('data-theme', t);
+          try {
+            localStorage.setItem('yh-theme', t);
+          } catch (e) {}
+          window.scrollTo(0, 0);
+        });
+      });
+    </script>
+  </body>
+</html>

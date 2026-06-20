@@ -1,0 +1,490 @@
+---
+import { site } from '../../data/site';
+import { fmtShort, type Notice } from '../../lib/notices';
+import Chick from '../Chick.astro';
+
+interface Props {
+  recent: Notice[];
+}
+const { recent } = Astro.props;
+const stepColors = ['#F4C64A', '#46AEA6', '#2E5FC6'];
+const stepFg = ['#3c4a3f', '#fff', '#fff'];
+const chipColors = ['#46AEA6', '#EC5B41', '#2E5FC6'];
+const dateColors = ['#EC5B41', '#46AEA6', '#F4C64A'];
+const staffColors = ['#F4C64A', '#9BD3CB', '#F3B0A0'];
+---
+
+<div class="home-c">
+  {/* hero */}
+  <section class="hero">
+    <div class="badge-top">{site.hero.c.badge}</div>
+    <h1 class="title" set:html={site.hero.c.title} />
+    <p class="desc" set:html={site.hero.c.desc} />
+    <div class="cta">
+      <a class="btn-coral" href={site.links.signup}>가입 신청하기</a>
+    </div>
+    <div class="chicks">
+      <Chick size={48} shadow={false} />
+      <Chick size={58} shadow={false} />
+      <Chick size={48} shadow={false} />
+    </div>
+  </section>
+
+  {/* about */}
+  <section class="about">
+    <div class="kicker">서버 소개 · About</div>
+    <h2 class="h2">{site.about.title}</h2>
+    <p class="body">{site.about.bodyC}</p>
+    <div class="chips">
+      {
+        site.concepts.map((c, i) => (
+          <span class="chip" style={`background:${chipColors[i]}`}>{c.ko}</span>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* notices */}
+  <section class="notices">
+    <div class="h3">공지사항</div>
+    <div class="notice-list">
+      {
+        recent.map((n, i) => (
+          <a class="notice-row" href={`/notices/${n.id}/`}>
+            <span class="pill-date" style={`background:${dateColors[i % dateColors.length]}`}>
+              {fmtShort(n.data.date)}
+            </span>
+            <span class="nr-title">{n.data.title}</span>
+          </a>
+        ))
+      }
+    </div>
+    <a class="more-btn" href="/notices/">전체 공지 보기 →</a>
+  </section>
+
+  {/* join */}
+  <section class="join">
+    <div class="h3 center white">가입 방법 3 STEP</div>
+    <div class="steps">
+      {
+        site.join.map((s, i) => (
+          <div class="step">
+            <div class="badge" style={`background:${stepColors[i]};color:${stepFg[i]}`}>{i + 1}</div>
+            <div>
+              <div class="step-title">{s.title}</div>
+              <div class="step-desc">{s.desc}</div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* rules */}
+  <section class="rules-sec">
+    <div class="h3">서버 규칙</div>
+    <div class="rules">
+      {
+        site.rules.map((r, i) => (
+          <div class="rule">
+            <span class="rule-num">{String(i + 1).padStart(2, '0')}</span>
+            <span>{r}</span>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* staff */}
+  <section class="staff-sec">
+    <div class="h3 center white">운영진 소개</div>
+    <div class="staff">
+      {
+        site.staff.map((m, i) => (
+          <div class="staff-card">
+            <div class="avatar" style={`background:${staffColors[i]}`}>{m.initial}</div>
+            <div class="staff-handle">{m.handle}</div>
+            <div class="staff-role">{m.roleShort}</div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* support */}
+  <section class="support">
+    <div class="h2">둥지를 함께 지켜요</div>
+    <p class="support-body">
+      서버는 매달 약 <b>{site.support.amount}</b> 으로 운영돼요.<br />작은 후원이 큰 힘이 됩니다.
+    </p>
+    <a class="btn-coral lg" href={site.support.url}>후원하기 ♡</a>
+  </section>
+
+  {/* faq */}
+  <section class="faq-sec">
+    <div class="h3">자주 묻는 질문</div>
+    <div class="faq">
+      {
+        site.faq.map((f) => (
+          <div class="faq-item">
+            <div class="faq-q">Q. {f.q}</div>
+            <div class="faq-a">{f.a}</div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  {/* footer */}
+  <footer class="foot">
+    <div class="foot-links">
+      <a class="fl-yellow" href={site.links.signup}>가입 신청</a>
+      <a class="fl-discord" href={site.links.discord}>디스코드</a>
+      <a class="fl-white" href={site.links.status}>서버 상태</a>
+    </div>
+    <div class="copyright">{site.name} · {site.nameEn}</div>
+  </footer>
+</div>
+
+<style>
+  .home-c {
+    background: var(--cream-c);
+  }
+  .h2 {
+    font-family: 'Jua', sans-serif;
+    font-weight: 400;
+    font-size: 28px;
+    color: var(--ink);
+    margin: 8px 0 10px;
+  }
+  .h3 {
+    font-family: 'Jua', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    color: var(--ink);
+  }
+  .h3.center {
+    text-align: center;
+  }
+  .h3.white {
+    color: #fff;
+  }
+  .body {
+    font-size: 15px;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* hero */
+  .hero {
+    padding: 38px 28px 40px;
+    background: var(--teal);
+    text-align: center;
+  }
+  .badge-top {
+    display: inline-block;
+    font-family: 'Jua', sans-serif;
+    font-size: 13px;
+    color: var(--teal-deep);
+    background: var(--yellow);
+    padding: 6px 15px;
+    border-radius: 999px;
+  }
+  .title {
+    font-family: 'Jua', sans-serif;
+    font-weight: 400;
+    font-size: 42px;
+    line-height: 1.2;
+    color: #fff;
+    margin: 16px 0 0;
+  }
+  .desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #eaf6ec;
+    margin: 12px 0 0;
+  }
+  .cta {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 24px;
+  }
+  .btn-coral {
+    font-family: 'Jua', sans-serif;
+    font-size: 16px;
+    color: #fff;
+    background: var(--coral);
+    padding: 13px 26px;
+    border-radius: 999px;
+    box-shadow: 0 5px 0 var(--coral-shadow);
+  }
+  .btn-coral.lg {
+    display: inline-block;
+    padding: 13px 30px;
+    margin-top: 18px;
+  }
+  .chicks {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 26px;
+  }
+
+  /* about */
+  .about {
+    padding: 34px 28px;
+    background: var(--yellow);
+  }
+  .about .kicker {
+    font-family: 'Jua', sans-serif;
+    font-size: 14px;
+    color: var(--coral-shadow);
+  }
+  .about .h2 {
+    color: #3c3122;
+  }
+  .about .body {
+    color: #5c4f38;
+  }
+  .chips {
+    display: flex;
+    gap: 8px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+  .chip {
+    font-family: 'Jua', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    padding: 7px 14px;
+    border-radius: 999px;
+  }
+
+  /* notices */
+  .notices {
+    padding: 34px 28px;
+  }
+  .notice-list {
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .notice-row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: var(--cream-c2);
+    border-radius: 999px;
+    padding: 13px 20px;
+  }
+  .pill-date {
+    font-family: 'Jua', sans-serif;
+    font-size: 12px;
+    color: #fff;
+    padding: 4px 11px;
+    border-radius: 999px;
+    flex: none;
+  }
+  .nr-title {
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .more-btn {
+    display: block;
+    text-align: center;
+    margin-top: 14px;
+    width: 100%;
+    font-family: 'Jua', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    background: var(--coral);
+    padding: 13px;
+    border-radius: 999px;
+    box-shadow: 0 4px 0 var(--coral-shadow);
+  }
+
+  /* join */
+  .join {
+    padding: 34px 28px;
+    background: var(--coral);
+  }
+  .steps {
+    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .step {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    background: #fff;
+    border-radius: 16px;
+    padding: 15px 17px;
+  }
+  .badge {
+    font-family: 'Jua', sans-serif;
+    width: 36px;
+    height: 36px;
+    flex: none;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .step-title {
+    font-family: 'Jua', sans-serif;
+    font-size: 16px;
+    color: var(--ink);
+  }
+  .step-desc {
+    font-size: 14px;
+    color: var(--ink-soft2);
+  }
+
+  /* rules */
+  .rules-sec {
+    padding: 34px 28px;
+  }
+  .rules {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .rule {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    background: var(--teal-tint2);
+    border-radius: 14px;
+    padding: 13px 17px;
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .rule-num {
+    font-family: 'Jua', sans-serif;
+    color: var(--teal-deep);
+  }
+
+  /* staff */
+  .staff-sec {
+    padding: 34px 28px;
+    background: var(--roof-blue);
+  }
+  .staff {
+    margin-top: 16px;
+    display: flex;
+    gap: 10px;
+  }
+  .staff-card {
+    flex: 1;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: 16px;
+    padding: 18px 8px;
+  }
+  .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Jua', sans-serif;
+    color: #3c4a3f;
+  }
+  .staff-handle {
+    font-family: 'Jua', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    margin-top: 8px;
+  }
+  .staff-role {
+    font-size: 11px;
+    color: #cdd9f7;
+    margin-top: 2px;
+  }
+
+  /* support */
+  .support {
+    padding: 34px 28px;
+    text-align: center;
+  }
+  .support-body {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--ink-soft2);
+    margin: 8px 0 0;
+  }
+  .support-body b {
+    color: var(--coral);
+  }
+
+  /* faq */
+  .faq-sec {
+    padding: 34px 28px;
+    background: var(--cream-c2);
+  }
+  .faq {
+    margin-top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .faq-item {
+    background: #fff;
+    border-radius: 14px;
+    padding: 15px 17px;
+  }
+  .faq-q {
+    font-family: 'Jua', sans-serif;
+    font-size: 15px;
+    color: var(--coral);
+  }
+  .faq-a {
+    font-size: 14px;
+    color: var(--ink-soft2);
+    margin-top: 4px;
+  }
+
+  /* footer */
+  .foot {
+    padding: 34px 28px;
+    background: var(--teal);
+    text-align: center;
+  }
+  .foot-links {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .foot-links a {
+    font-family: 'Jua', sans-serif;
+    font-size: 14px;
+    padding: 10px 18px;
+    border-radius: 999px;
+  }
+  .fl-yellow {
+    color: var(--teal);
+    background: var(--yellow);
+  }
+  .fl-discord {
+    color: #fff;
+    background: var(--discord);
+  }
+  .fl-white {
+    color: var(--teal);
+    background: #fff;
+  }
+  .copyright {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 12px;
+    color: #d7efeb;
+    margin-top: 18px;
+  }
+</style>

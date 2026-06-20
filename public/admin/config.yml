@@ -1,0 +1,69 @@
+# =============================================================
+#  Sveltia CMS 설정 — 공지 작성/수정용 관리자 UI
+#  https://github.com/sveltia/sveltia-cms
+# =============================================================
+
+backend:
+  name: github
+  repo: eeruwang/byongari-doc # 레포 (owner/name)
+  branch: main # 공지를 커밋할 브랜치 (배포 대상)
+  # GitHub 로그인을 위한 OAuth가 필요합니다. (README의 'Sveltia 인증 설정' 참고)
+  # Cloudflare Workers로 sveltia-cms-auth를 띄운 뒤 아래 줄의 주석을 풀고 URL을 넣으세요.
+  # base_url: https://your-auth-worker.workers.dev
+
+# 로컬에서 `npx @sveltia/cms-proxy-server` 로 띄우면 GitHub 없이 바로 편집 가능
+local_backend: true
+
+# 업로드 이미지 저장 위치
+media_folder: public/uploads
+public_folder: /uploads
+
+# 한국어 UI
+locale: ko
+
+collections:
+  - name: notices
+    label: 공지사항
+    label_singular: 공지
+    folder: src/content/notices
+    create: true
+    delete: true
+    # 파일명: 2026-06-22-새-공지.md
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    sortable_fields: [date, title]
+    view_filters:
+      - label: 점검
+        field: category
+        pattern: 점검
+      - label: 업데이트
+        field: category
+        pattern: 업데이트
+      - label: 안내
+        field: category
+        pattern: 안내
+      - label: 이벤트
+        field: category
+        pattern: 이벤트
+    fields:
+      - { name: title, label: 제목, widget: string }
+      - { name: date, label: 날짜, widget: datetime, date_format: 'YYYY-MM-DD', time_format: false, picker_utc: false }
+      - name: category
+        label: 카테고리
+        widget: select
+        options: [점검, 업데이트, 안내, 이벤트]
+        default: 안내
+      - { name: categoryLabel, label: '상세 태그 라벨 (선택)', widget: string, required: false, hint: '비우면 카테고리를 그대로 사용해요.' }
+      - { name: author, label: 작성자, widget: string, default: 운영팀 }
+      - { name: summary, label: '요약 (상세 상단 인트로)', widget: text, required: false }
+      - name: info
+        label: '핵심정보 박스 (일시/영향/내용 등)'
+        widget: list
+        required: false
+        label_singular: 항목
+        summary: '{{fields.label}}: {{fields.value}}'
+        fields:
+          - { name: label, label: 항목명, widget: string, hint: '예: 일시, 영향, 내용' }
+          - { name: value, label: 내용, widget: string }
+      - { name: tags, label: '해시태그', widget: list, required: false, default: [] }
+      - { name: pinned, label: '상단 고정', widget: boolean, default: false }
+      - { name: body, label: 본문, widget: markdown }

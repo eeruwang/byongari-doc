@@ -1,0 +1,17 @@
+{
+  "name": "byongari-doc",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "노란집 — Misskey(CherryPick) 서버 공지·안내 사이트",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.2.1",
+    "astro": "^5.2.5"
+  }
+}

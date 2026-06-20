@@ -1,0 +1,90 @@
+---
+import { fmtFull, type Notice } from '../../lib/notices';
+interface Props {
+  notices: Notice[];
+}
+const { notices } = Astro.props;
+---
+
+<div class="list-c view">
+  <div class="head">
+    <a class="back" href="/">← 메인으로</a>
+    <h1 class="title">공지사항</h1>
+  </div>
+  <div class="rows">
+    {
+      notices.map((n) => (
+        <a class="row" href={`/notices/${n.id}/`}>
+          <div class="row-main">
+            <span class="cat">{n.data.category}</span>
+            <span class="row-title">{n.data.title}</span>
+          </div>
+          <span class="date">{fmtFull(n.data.date)}</span>
+        </a>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .list-c {
+    background: var(--cream-c);
+  }
+  .head {
+    padding: 30px 28px 24px;
+    background: var(--teal);
+  }
+  .back {
+    font-family: 'Jua', sans-serif;
+    font-size: 14px;
+    color: #d7efeb;
+  }
+  .title {
+    font-family: 'Jua', sans-serif;
+    font-weight: 400;
+    font-size: 30px;
+    color: #fff;
+    margin: 10px 0 0;
+  }
+  .rows {
+    padding: 26px 28px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .row {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--cream-c2);
+    border-radius: 16px;
+    padding: 14px 18px;
+  }
+  .row-main {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 0;
+  }
+  .cat {
+    font-family: 'Jua', sans-serif;
+    font-size: 11px;
+    color: #fff;
+    background: var(--coral);
+    padding: 3px 10px;
+    border-radius: 999px;
+    align-self: flex-start;
+    white-space: nowrap;
+  }
+  .row-title {
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .date {
+    font-family: 'Fredoka', sans-serif;
+    font-size: 12px;
+    color: #c0a36f;
+    white-space: nowrap;
+  }
+</style>
