@@ -82,6 +82,8 @@ export const site = {
     amount: '₩40,000',
     note: '부담 없는 선에서의 후원이 큰 힘이 됩니다.',
     url: 'https://ko-fi.com/byongari',
+    // 사이트 안에서 바로 후원받는 임베드 패널 주소
+    embed: 'https://ko-fi.com/byongari/?hidefeed=true&widget=true&embed=true&preview=true',
   },
 
   // FAQ
