@@ -89,6 +89,18 @@ const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.n
       });
     </script>
 
+    {/* 외부 링크(가입·디스코드·서버상태 등)는 새 탭으로 열어 안내 사이트를 유지 */}
+    <script is:inline>
+      document.querySelectorAll('a[href^="http"]').forEach(function (a) {
+        try {
+          if (new URL(a.href).hostname !== location.hostname) {
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+          }
+        } catch (e) {}
+      });
+    </script>
+
     {/* 후원 버튼 → 사이트 안 모달로 Ko-fi 패널 열기 (JS 없으면 링크로 폴백) */}
     <script is:inline define:vars={{ embed: site.support.embed }}>
       (function () {
