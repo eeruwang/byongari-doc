@@ -65,8 +65,9 @@ button {
   cursor: pointer;
 }
 
-/* 중앙 600px 컬럼 */
-.column {
+/* 중앙 600px 컬럼 — 본문은 이 폭으로 고정되고, 바깥은 #EBE6D6 여백 */
+.column,
+main {
   width: 100%;
   max-width: var(--col);
   margin: 0 auto;
