@@ -3,6 +3,7 @@ import { site } from '../../data/site';
 import { fmtShort, type Notice } from '../../lib/notices';
 import Chick from '../Chick.astro';
 import Avatar from '../Avatar.astro';
+import StatusBadge from '../StatusBadge.astro';
 
 interface Props {
   recent: Notice[];
@@ -172,7 +173,8 @@ const staffFg = ['#3c4a3f', '#fff', '#fff'];
       <a class="btn-discord sm" href={site.links.discord}>디스코드</a>
       <a class="btn-teal sm" href={site.links.status}>서버 상태</a>
     </div>
-    <div class="copyright">{site.name} · 작은 둥지에서 · {site.nameEn}</div>
+    <div class="status-row"><StatusBadge theme="light" /></div>
+    <div class="copyright">{site.name} · 작은 둥지에서 · {site.nameEn} · since {site.status.since}</div>
   </section>
 </div>
 
@@ -596,11 +598,16 @@ const staffFg = ['#3c4a3f', '#fff', '#fff'];
   .foot-links a {
     padding: 10px 18px;
   }
+  .status-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 22px;
+  }
   .copyright {
     text-align: center;
     font-family: 'Fredoka', sans-serif;
     font-size: 12px;
     color: var(--muted);
-    margin-top: 26px;
+    margin-top: 14px;
   }
 </style>

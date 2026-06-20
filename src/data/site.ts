@@ -6,8 +6,8 @@
 
 export const site = {
   // 기본 정보
-  name: '노란집',
-  nameEn: 'Yellow House',
+  name: '뵹아리',
+  nameEn: 'byongari',
   tagline: '작고 다정한 미스키 체리픽 서버',
 
   // 히어로(상단) 카피 — 테마별로 분위기가 조금씩 다릅니다.
@@ -36,12 +36,12 @@ export const site = {
   about: {
     title: '천천히, 다정하게',
     bodyA:
-      '노란집은 천천히 흐르는 시간을 좋아하는 사람들이 모인 작은 미스키 체리픽 서버예요. 서로의 하루를 가볍게 나누고, 부담 없이 머무를 수 있는 공간을 지향해요.',
+      '뵹아리는 천천히 흐르는 시간을 좋아하는 사람들이 모인 작은 미스키 체리픽 서버예요. 서로의 하루를 가볍게 나누고, 부담 없이 머무를 수 있는 공간을 지향해요.',
     subEn: 'A small Misskey (CherryPick) server for a slower, gentler timeline.',
     bodyB:
-      '노란집은 ‘천천히, 다정하게’를 모토로 하는 작은 미스키 체리픽 서버예요. 큰 화제보다 소소한 일상의 기록을 환영해요.',
+      '뵹아리는 ‘천천히, 다정하게’를 모토로 하는 작은 미스키 체리픽 서버예요. 큰 화제보다 소소한 일상의 기록을 환영해요.',
     bodyC:
-      '노란집은 작은 일상의 기록을 환영하는 미스키 체리픽 서버예요. 부담 없이 머무를 수 있는 공간을 함께 만들어가요.',
+      '뵹아리는 작은 일상의 기록을 환영하는 미스키 체리픽 서버예요. 부담 없이 머무를 수 있는 공간을 함께 만들어가요.',
   },
 
   // 컨셉 칩
@@ -95,7 +95,14 @@ export const site = {
   links: {
     signup: 'https://byongari.com/signup', // 미스키 체리픽 서버 가입 페이지
     discord: '#', // 디스코드 초대
-    status: '#', // 서버 상태 페이지
+    status: 'https://watch.byongari.com/', // 서버 상태 페이지
+  },
+
+  // 서버 상태 배지 + 운영 시작일
+  status: {
+    badge: 'https://watch.byongari.com/badge', // ?theme=dark|light 로 임베드
+    url: 'https://watch.byongari.com/',
+    since: '2025.10.24', // 운영 시작일
   },
 };
 

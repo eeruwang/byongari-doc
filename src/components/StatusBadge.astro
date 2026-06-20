@@ -1,0 +1,27 @@
+---
+import { site } from '../data/site';
+// 서버 상태 배지(watch.byongari.com) 임베드. 배경 밝기에 맞춰 theme 선택.
+interface Props {
+  theme?: 'dark' | 'light';
+}
+const { theme = 'dark' } = Astro.props;
+---
+
+<iframe
+  class="status-badge"
+  src={`${site.status.badge}?theme=${theme}`}
+  width="250"
+  height="30"
+  frameborder="0"
+  scrolling="no"
+  title="서버 상태"
+  loading="lazy"
+  style="color-scheme: normal"></iframe>
+
+<style>
+  .status-badge {
+    display: block;
+    border: 0;
+    max-width: 100%;
+  }
+</style>
