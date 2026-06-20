@@ -77,11 +77,11 @@ export const site = {
     },
   ],
 
-  // 후원
+  // 후원 (Ko-fi — 핸들이 다르면 url만 바꾸세요)
   support: {
     amount: '₩40,000',
     note: '부담 없는 선에서의 후원이 큰 힘이 됩니다.',
-    url: '#',
+    url: 'https://ko-fi.com/byongari',
   },
 
   // FAQ
