@@ -7,7 +7,3 @@
 # 해시된 정적 자산은 장기 캐시
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
-
-# 관리자 페이지는 색인 제외
-/admin/*
-  X-Robots-Tag: noindex
