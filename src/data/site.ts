@@ -99,7 +99,7 @@ export const site = {
   // 외부 링크 — 실제 URL로 교체하세요.
   links: {
     signup: 'https://byongari.com/signup', // 미스키 체리픽 서버 가입 페이지
-    discord: '#', // 디스코드 초대
+    contact: 'mailto:contact@mail.eeruwang.me', // 문의 메일
     status: 'https://watch.byongari.com/', // 서버 상태 페이지
   },
 
