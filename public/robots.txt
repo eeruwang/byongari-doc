@@ -1,5 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /admin
 
-Sitemap: https://byongari.example.com/sitemap-index.xml
+Sitemap: https://notice.byongari.com/sitemap-index.xml

@@ -66,11 +66,15 @@ export const site = {
     '무단 홍보·스팸은 금지예요.',
   ],
 
-  // 운영진
+  // 운영진 (avatar: /uploads/ 에 이미지 파일을 두면 사진으로 표시, 없으면 이니셜)
   staff: [
-    { handle: '@hina', role: '서버 운영 · 관리', roleShort: '운영·관리', initial: 'H' },
-    { handle: '@yuki', role: '모더레이션 · 신고 처리', roleShort: '모더레이션', initial: 'Y' },
-    { handle: '@momo', role: '커뮤니티 · 이벤트', roleShort: '커뮤니티', initial: 'M' },
+    {
+      handle: '@eeruwang',
+      role: '서버 운영 · 관리',
+      roleShort: '운영·관리',
+      initial: 'E',
+      avatar: '/uploads/eeruwang.png',
+    },
   ],
 
   // 후원
@@ -89,7 +93,7 @@ export const site = {
 
   // 외부 링크 — 실제 URL로 교체하세요.
   links: {
-    signup: '#', // 가입 신청 폼
+    signup: 'https://byongari.com/signup', // 미스키 체리픽 서버 가입 페이지
     discord: '#', // 디스코드 초대
     status: '#', // 서버 상태 페이지
   },

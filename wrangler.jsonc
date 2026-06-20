@@ -2,6 +2,9 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "byongari-doc",
   "compatibility_date": "2026-06-20",
+  // 정적 자산만 서빙(서버/워커 불필요). 공지 편집은 Pages CMS가 담당.
+  "assets": {
+    "directory": "./dist"
   "observability": {
     "enabled": true
   },
@@ -10,8 +13,5 @@
     "global_fetch_strictly_public",
     "nodejs_compat"
   ],
-  "assets": {
-    "binding": "ASSETS",
-    "directory": "dist"
   }
 }

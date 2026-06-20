@@ -2,6 +2,7 @@
 import { site } from '../../data/site';
 import { fmtShort, type Notice } from '../../lib/notices';
 import Chick from '../Chick.astro';
+import Avatar from '../Avatar.astro';
 
 interface Props {
   recent: Notice[];
@@ -102,7 +103,7 @@ const staffColors = ['#F4C64A', '#9BD3CB', '#F3B0A0'];
       {
         site.staff.map((m, i) => (
           <div class="staff-card">
-            <div class="avatar" style={`background:${staffColors[i]}`}>{m.initial}</div>
+            <Avatar initial={m.initial} bg={staffColors[i]} size={48} avatar={m.avatar} alt={m.handle} />
             <div class="staff-handle">{m.handle}</div>
             <div class="staff-role">{m.roleShort}</div>
           </div>

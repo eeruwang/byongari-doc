@@ -6,7 +6,7 @@
 
 - **프레임워크**: [Astro 5](https://astro.build) (정적 출력, JS 최소)
 - **호스팅**: Cloudflare Pages
-- **공지 작성**: Markdown 파일 + [Sveltia CMS](https://github.com/sveltia/sveltia-cms) 관리자 UI
+- **공지 작성**: Markdown 파일 + [Pages CMS](https://pagescms.org) 폼 UI
 
 ---
 
@@ -23,19 +23,16 @@ npm run preview  # 빌드 결과 미리보기
 
 ## 📌 공지 관리 (가장 자주 하는 작업)
 
-### 방법 1. 관리자 UI — Sveltia CMS (코드 몰라도 OK)
+### 방법 1. 폼 UI — Pages CMS (코드 몰라도 OK, 설정 간단)
 
-배포 후 `https://<사이트주소>/admin/` 에 접속 → GitHub 로그인 → 폼으로 공지 작성·수정·삭제.
-저장하면 레포에 자동 커밋되고, Cloudflare가 자동으로 다시 배포해요.
+자체 OAuth 앱이나 워커 없이, **호스팅된 Pages CMS로 GitHub 로그인만** 하면 돼요.
 
-> 최초 1회 **인증 설정**이 필요합니다. 아래 [Sveltia 인증 설정](#sveltia-인증-설정-최초-1회) 참고.
+1. <https://app.pagescms.org> 접속 → **Sign in with GitHub**
+2. 안내에 따라 **Pages CMS GitHub App을 이 레포(`eeruwang/byongari-doc`)에 설치/승인**
+3. 레포를 선택하면 루트의 `.pages.yml` 설정을 읽어 **공지 작성 폼**이 떠요
+4. 작성·저장 → 레포에 자동 커밋 → Cloudflare 자동 재배포
 
-로컬에서 GitHub 없이 바로 편집하려면:
-
-```bash
-npx @sveltia/cms-proxy-server   # 터미널 1
-npm run dev                     # 터미널 2 → http://localhost:4321/admin/
-```
+> 편집 설정은 레포의 [`.pages.yml`](.pages.yml) 에 들어 있어요(컬렉션·필드 정의).
 
 ### 방법 2. Markdown 파일 직접 추가 (GitHub에서)
 
@@ -96,19 +93,8 @@ pinned: false             # (선택) 상단 고정
    - **Output directory**: `dist`
 4. 배포 후 `main` 브랜치에 푸시할 때마다 **자동 재배포**됩니다. (PR마다 프리뷰 URL도 생성)
 
-정적 사이트라 서버 런타임/어댑터가 필요 없고, 무료 티어로 충분해요.
-
-### Sveltia 인증 설정 (최초 1회)
-
-`/admin` 에서 GitHub 로그인을 하려면 OAuth 중개가 필요해요. 가장 간단한 방법:
-
-1. **GitHub → Settings → Developer settings → OAuth Apps → New OAuth App** 생성
-   - Authorization callback URL: 아래 워커 주소 + `/callback`
-2. [`sveltia-cms-auth`](https://github.com/sveltia/sveltia-cms-auth) 워커를 Cloudflare Workers에 배포하고
-   `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` 환경변수를 설정.
-3. `public/admin/config.yml` 의 `backend.base_url` 주석을 풀고 워커 주소를 입력.
-
-> 자세한 단계는 Sveltia CMS 문서를 참고하세요: <https://github.com/sveltia/sveltia-cms>
+정적 사이트라 서버 런타임/어댑터/워커가 필요 없고, 무료 티어로 충분해요.
+공지 편집은 Pages CMS(호스팅)가 담당하므로 사이트 쪽에 인증 설정이 없습니다.
 
 ---
 
@@ -132,9 +118,10 @@ src/
       ├─ index.astro       # /notices     전체 공지
       └─ [...slug].astro   # /notices/:id 공지 상세
 public/
-├─ admin/                  # Sveltia CMS (관리자 UI)
+├─ uploads/                # 이미지 업로드(운영진 프로필 등)
 ├─ chick-favicon.png       # 병아리 파비콘
 ├─ _headers · robots.txt   # Cloudflare 헤더 / 크롤러 규칙
+.pages.yml                 # Pages CMS 편집 폼 정의(공지 컬렉션·필드)
 ```
 
 ### 테마 전환 동작 방식
