@@ -1,16 +1,20 @@
 ---
 import '../styles/global.css';
 import { site } from '../data/site';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title?: string;
   description?: string;
+  ogImage?: string;
 }
 const {
   title,
-  description = '작고 다정한 미스키 체리픽 서버 노란집의 공지·안내 사이트',
+  description = '작고 다정한 미스키 체리픽 서버 뵹아리의 공지·안내 사이트',
+  ogImage = '/og/default.png',
 } = Astro.props;
 const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.nameEn}`;
+const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).href;
 ---
 
 <!doctype html>
@@ -25,6 +29,11 @@ const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.n
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImageUrl} />
     <meta name="theme-color" content="#46AEA6" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -67,6 +76,17 @@ const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.n
       <slot />
     </main>
 
+    <Footer />
+
+    {/* 사이트 안에서 바로 후원받는 Ko-fi 패널 (모달) */}
+    <div id="kofi-modal" class="kofi-modal" hidden>
+      <div class="kofi-backdrop" data-kofi-close></div>
+      <div class="kofi-dialog" role="dialog" aria-modal="true" aria-label="후원하기">
+        <button type="button" class="kofi-close" data-kofi-close aria-label="닫기">✕</button>
+        <iframe id="kofi-frame" title="후원하기" src="about:blank" loading="lazy"></iframe>
+      </div>
+    </div>
+
     <script is:inline>
       document.querySelectorAll('[data-theme-pick]').forEach(function (btn) {
         btn.addEventListener('click', function () {
@@ -79,5 +99,97 @@ const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.n
         });
       });
     </script>
+
+    {/* 외부 링크(가입·디스코드·서버상태 등)는 새 탭으로 열어 안내 사이트를 유지 */}
+    <script is:inline>
+      document.querySelectorAll('a[href^="http"]').forEach(function (a) {
+        try {
+          if (new URL(a.href).hostname !== location.hostname) {
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+          }
+        } catch (e) {}
+      });
+    </script>
+
+    {/* 후원 버튼 → 사이트 안 모달로 Ko-fi 패널 열기 (JS 없으면 링크로 폴백) */}
+    <script is:inline define:vars={{ embed: site.support.embed }}>
+      (function () {
+        var modal = document.getElementById('kofi-modal');
+        var frame = document.getElementById('kofi-frame');
+        if (!modal || !frame) return;
+        function open() {
+          if (frame.getAttribute('src') !== embed) frame.setAttribute('src', embed);
+          modal.hidden = false;
+          document.body.style.overflow = 'hidden';
+        }
+        function close() {
+          modal.hidden = true;
+          document.body.style.overflow = '';
+        }
+        document.querySelectorAll('[data-kofi]').forEach(function (el) {
+          el.addEventListener('click', function (e) {
+            e.preventDefault();
+            open();
+          });
+        });
+        modal.querySelectorAll('[data-kofi-close]').forEach(function (el) {
+          el.addEventListener('click', close);
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && !modal.hidden) close();
+        });
+      })();
+    </script>
+
+    <style>
+      .kofi-modal[hidden] {
+        display: none;
+      }
+      .kofi-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+      }
+      .kofi-backdrop {
+        position: absolute;
+        inset: 0;
+        background: rgba(44, 50, 40, 0.55);
+        backdrop-filter: blur(2px);
+      }
+      .kofi-dialog {
+        position: relative;
+        width: 100%;
+        max-width: 400px;
+        background: #fff;
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: 0 18px 50px rgba(0, 0, 0, 0.3);
+      }
+      .kofi-close {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        z-index: 1;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+        color: #3c4a3f;
+        font-size: 15px;
+        line-height: 1;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      }
+      #kofi-frame {
+        display: block;
+        width: 100%;
+        height: min(680px, 82vh);
+        border: 0;
+      }
+    </style>
   </body>
 </html>

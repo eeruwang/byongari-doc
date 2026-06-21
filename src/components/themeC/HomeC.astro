@@ -22,7 +22,7 @@ const staffColors = ['#F4C64A', '#9BD3CB', '#F3B0A0'];
     <h1 class="title" set:html={site.hero.c.title} />
     <p class="desc" set:html={site.hero.c.desc} />
     <div class="cta">
-      <a class="btn-coral" href={site.links.signup}>가입 신청하기</a>
+      <a class="btn-coral" href={site.links.signup}>가입하기</a>
     </div>
     <div class="chicks">
       <Chick size={48} shadow={false} />
@@ -118,7 +118,7 @@ const staffColors = ['#F4C64A', '#9BD3CB', '#F3B0A0'];
     <p class="support-body">
       서버는 매달 약 <b>{site.support.amount}</b> 으로 운영돼요.<br />작은 후원이 큰 힘이 됩니다.
     </p>
-    <a class="btn-coral lg" href={site.support.url}>후원하기 ♡</a>
+    <a class="btn-coral lg" href={site.support.url} data-kofi>후원하기 ♡</a>
   </section>
 
   {/* faq */}
@@ -136,15 +136,6 @@ const staffColors = ['#F4C64A', '#9BD3CB', '#F3B0A0'];
     </div>
   </section>
 
-  {/* footer */}
-  <footer class="foot">
-    <div class="foot-links">
-      <a class="fl-yellow" href={site.links.signup}>가입 신청</a>
-      <a class="fl-discord" href={site.links.discord}>디스코드</a>
-      <a class="fl-white" href={site.links.status}>서버 상태</a>
-    </div>
-    <div class="copyright">{site.name} · {site.nameEn}</div>
-  </footer>
 </div>
 
 <style>
@@ -482,10 +473,20 @@ const staffColors = ['#F4C64A', '#9BD3CB', '#F3B0A0'];
     color: var(--teal);
     background: #fff;
   }
+  .status-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 18px;
+  }
   .copyright {
     font-family: 'Fredoka', sans-serif;
     font-size: 12px;
     color: #d7efeb;
-    margin-top: 18px;
+    margin-top: 12px;
+    line-height: 1.9;
+  }
+  .copyright a {
+    color: inherit;
+    text-decoration: underline;
   }
 </style>

@@ -6,7 +6,7 @@
 
 - **프레임워크**: [Astro 5](https://astro.build) (정적 출력, JS 최소)
 - **호스팅**: Cloudflare Pages
-- **공지 작성**: Markdown 파일 + [Pages CMS](https://pagescms.org) 폼 UI
+- **공지 작성**: Markdown 파일 + [Sveltia CMS](https://github.com/sveltia/sveltia-cms) 폼 UI (자체 호스팅)
 
 ---
 
@@ -23,16 +23,17 @@ npm run preview  # 빌드 결과 미리보기
 
 ## 📌 공지 관리 (가장 자주 하는 작업)
 
-### 방법 1. 폼 UI — Pages CMS (코드 몰라도 OK, 설정 간단)
+### 방법 1. 폼 UI — Sveltia CMS (자체 호스팅, 외부 서비스 없음)
 
-자체 OAuth 앱이나 워커 없이, **호스팅된 Pages CMS로 GitHub 로그인만** 하면 돼요.
+CMS 스크립트(`/admin/sveltia-cms.js`)는 이 레포에 내장돼 **내 도메인에서** 로드되고,
+GitHub 로그인은 **같은 도메인의 워커(`worker/index.js`)** 가 처리해요. 외부 회사 서버를 거치지 않아요.
 
-1. <https://app.pagescms.org> 접속 → **Sign in with GitHub**
-2. 안내에 따라 **Pages CMS GitHub App을 이 레포(`eeruwang/byongari-doc`)에 설치/승인**
-3. 레포를 선택하면 루트의 `.pages.yml` 설정을 읽어 **공지 작성 폼**이 떠요
-4. 작성·저장 → 레포에 자동 커밋 → Cloudflare 자동 재배포
+- 배포 후 `https://notice.byongari.com/admin/` 접속 → **Login with GitHub** → 폼으로 작성·수정·삭제
+- 저장하면 레포에 자동 커밋 → Cloudflare 자동 재배포
+- 최초 1회 **OAuth 설정** 필요: 아래 [관리자 로그인(OAuth) 설정](#관리자-로그인oauth-설정--최초-1회) 참고
 
-> 편집 설정은 레포의 [`.pages.yml`](.pages.yml) 에 들어 있어요(컬렉션·필드 정의).
+> 로컬에서 GitHub 없이 바로 편집: `npx @sveltia/cms-proxy-server` 실행 후 `npm run dev` → `localhost:4321/admin/`
+> 편집 폼 정의는 [`public/admin/config.yml`](public/admin/config.yml) 에 있어요.
 
 ### 방법 2. Markdown 파일 직접 추가 (GitHub에서)
 
@@ -93,8 +94,25 @@ pinned: false             # (선택) 상단 고정
    - **Output directory**: `dist`
 4. 배포 후 `main` 브랜치에 푸시할 때마다 **자동 재배포**됩니다. (PR마다 프리뷰 URL도 생성)
 
-정적 사이트라 서버 런타임/어댑터/워커가 필요 없고, 무료 티어로 충분해요.
-공지 편집은 Pages CMS(호스팅)가 담당하므로 사이트 쪽에 인증 설정이 없습니다.
+정적 사이트라 서버 런타임/어댑터가 필요 없어요. 빌드 결과 `dist/`를 자산으로 서빙하고,
+`/auth`·`/callback`(관리자 로그인)만 소형 워커(`worker/index.js`)가 처리합니다.
+배포·디플로이 명령은 `npm run build` / `npx wrangler deploy` 입니다.
+
+### 관리자 로그인(OAuth) 설정 — 최초 1회
+
+`/admin` 의 GitHub 로그인은 **사이트 워커가 직접 처리**해요. 아래 두 가지만 등록하면 끝:
+
+1. **GitHub OAuth App 생성** (`Settings → Developer settings → OAuth Apps → New`)
+   - Homepage URL: `https://notice.byongari.com`
+   - **Authorization callback URL**: `https://notice.byongari.com/callback`
+2. **Cloudflare Worker에 시크릿 등록** (`Settings → Variables and Secrets` 또는 CLI):
+   ```bash
+   npx wrangler secret put GITHUB_CLIENT_ID
+   npx wrangler secret put GITHUB_CLIENT_SECRET
+   ```
+
+> CMS 스크립트를 새 버전으로 갱신하려면:
+> `npm i -D @sveltia/cms@latest && cp node_modules/@sveltia/cms/dist/sveltia-cms.js public/admin/`
 
 ---
 
@@ -121,7 +139,9 @@ public/
 ├─ uploads/                # 이미지 업로드(운영진 프로필 등)
 ├─ chick-favicon.png       # 병아리 파비콘
 ├─ _headers · robots.txt   # Cloudflare 헤더 / 크롤러 규칙
-.pages.yml                 # Pages CMS 편집 폼 정의(공지 컬렉션·필드)
+├─ admin/                  # Sveltia CMS (자체 호스팅: index.html·config.yml·sveltia-cms.js)
+worker/index.js            # /auth·/callback OAuth 중개 워커
+wrangler.jsonc             # Cloudflare 배포 설정(워커 + 정적 자산)
 ```
 
 ### 테마 전환 동작 방식

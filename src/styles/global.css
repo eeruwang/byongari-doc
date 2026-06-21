@@ -193,3 +193,137 @@ html[data-theme='c'] .switcher .seg-c {
     scroll-behavior: auto !important;
   }
 }
+
+/* =============================================================
+   법적/안내 문서 페이지 (개인정보처리방침 / 이용약관 / 문의)
+   — 공통 레이아웃 + 테마(data-theme)별 색·폰트
+   ============================================================= */
+.legal {
+  padding: 20px 28px 56px;
+  color: var(--ink-soft);
+}
+.legal .back-bar {
+  padding: 0 0 8px;
+}
+.legal .back {
+  font-size: 14px;
+}
+.legal h1 {
+  font-weight: 400;
+  font-size: 28px;
+  margin: 12px 0 10px;
+}
+.legal h2 {
+  font-weight: 400;
+  font-size: 18px;
+  margin: 26px 0 8px;
+}
+.legal p {
+  font-size: 15px;
+  line-height: 1.85;
+  color: inherit;
+  margin: 0;
+}
+.legal .lead {
+  margin-bottom: 8px;
+}
+.legal ul {
+  margin: 0;
+  padding-left: 18px;
+}
+.legal li {
+  font-size: 15px;
+  line-height: 1.8;
+  color: inherit;
+  margin-bottom: 4px;
+}
+.legal a {
+  text-decoration: underline;
+}
+.legal .effective {
+  margin-top: 32px;
+  font-family: 'Fredoka', sans-serif;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* 테마 A — 그림책 */
+html[data-theme='a'] .legal {
+  background: var(--cream-a);
+  color: var(--ink-soft);
+}
+html[data-theme='a'] .legal .back,
+html[data-theme='a'] .legal h1,
+html[data-theme='a'] .legal h2 {
+  font-family: 'Jua', sans-serif;
+}
+html[data-theme='a'] .legal .back {
+  color: var(--ink-soft2);
+}
+html[data-theme='a'] .legal h1 {
+  color: var(--ink);
+}
+html[data-theme='a'] .legal h2 {
+  color: var(--coral);
+}
+html[data-theme='a'] .legal b {
+  color: var(--ink);
+}
+html[data-theme='a'] .legal a {
+  color: var(--teal-deep);
+}
+
+/* 테마 B — 미니멀 */
+html[data-theme='b'] .legal {
+  background: var(--cream-b);
+  color: #5f685d;
+}
+html[data-theme='b'] .legal .back {
+  color: var(--teal);
+}
+html[data-theme='b'] .legal h1 {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 500;
+  color: var(--ink2);
+}
+html[data-theme='b'] .legal h2 {
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--ink2);
+}
+html[data-theme='b'] .legal b {
+  color: var(--ink2);
+}
+html[data-theme='b'] .legal a {
+  color: var(--teal);
+}
+html[data-theme='b'] .legal .effective {
+  color: var(--muted2);
+}
+
+/* 테마 C — 팝 */
+html[data-theme='c'] .legal {
+  background: var(--cream-c);
+  color: var(--ink-soft);
+}
+html[data-theme='c'] .legal .back,
+html[data-theme='c'] .legal h1,
+html[data-theme='c'] .legal h2 {
+  font-family: 'Jua', sans-serif;
+}
+html[data-theme='c'] .legal .back {
+  color: var(--coral);
+}
+html[data-theme='c'] .legal h1 {
+  color: var(--ink);
+}
+html[data-theme='c'] .legal h2 {
+  color: var(--teal-deep);
+}
+html[data-theme='c'] .legal b {
+  color: var(--ink);
+}
+html[data-theme='c'] .legal a {
+  color: var(--coral-shadow);
+}

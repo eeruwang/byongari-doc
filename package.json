@@ -13,11 +13,14 @@
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "12",
     "@astrojs/sitemap": "^3.2.1",
-    "astro": "^5.2.5"
+    "@resvg/resvg-js": "^2.6.2",
+    "astro": "^5.2.5",
+    "satori": "^0.26.0",
+    "satori-html": "^0.3.2"
   },
   "devDependencies": {
+    "@sveltia/cms": "^0.167.3",
     "wrangler": "^4.103.0"
   }
 }

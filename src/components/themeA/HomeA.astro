@@ -22,8 +22,7 @@ const staffFg = ['#3c4a3f', '#fff', '#fff'];
     <h1 class="title" set:html={site.hero.a.title} />
     <p class="sub" set:html={site.hero.a.sub} />
     <div class="cta">
-      <a class="btn-yellow" href={site.links.signup}>가입 신청하기</a>
-      <a class="btn-ghost" href={site.links.discord}>디스코드</a>
+      <a class="btn-yellow" href={site.links.signup}>가입하기</a>
     </div>
     <div class="scene">
       <div class="house">
@@ -146,7 +145,7 @@ const staffFg = ['#3c4a3f', '#fff', '#fff'];
         서버는 매달 약 <b>{site.support.amount}</b> 의 비용으로 운영돼요.<br />
         {site.support.note}
       </p>
-      <a class="btn-coral" href={site.support.url}>후원하기</a>
+      <a class="btn-coral" href={site.support.url} data-kofi>후원하기</a>
     </div>
   </section>
 
@@ -165,15 +164,6 @@ const staffFg = ['#3c4a3f', '#fff', '#fff'];
     </div>
   </section>
 
-  {/* links / footer */}
-  <section class="pad foot">
-    <div class="foot-links">
-      <a class="btn-yellow sm" href={site.links.signup}>가입 신청</a>
-      <a class="btn-discord sm" href={site.links.discord}>디스코드</a>
-      <a class="btn-teal sm" href={site.links.status}>서버 상태</a>
-    </div>
-    <div class="copyright">{site.name} · 작은 둥지에서 · {site.nameEn}</div>
-  </section>
 </div>
 
 <style>
@@ -596,11 +586,21 @@ const staffFg = ['#3c4a3f', '#fff', '#fff'];
   .foot-links a {
     padding: 10px 18px;
   }
+  .status-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 22px;
+  }
   .copyright {
     text-align: center;
     font-family: 'Fredoka', sans-serif;
     font-size: 12px;
     color: var(--muted);
-    margin-top: 26px;
+    margin-top: 14px;
+    line-height: 1.9;
+  }
+  .copyright a {
+    color: inherit;
+    text-decoration: underline;
   }
 </style>

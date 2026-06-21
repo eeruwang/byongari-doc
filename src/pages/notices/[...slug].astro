@@ -21,7 +21,7 @@ const { notice } = Astro.props;
 const { Content } = await render(notice);
 ---
 
-<Base title={notice.data.title} description={notice.data.summary}>
+<Base title={notice.data.title} description={notice.data.summary} ogImage={`/og/notices/${notice.id}.png`}>
   <div class="theme-block t-a"><DetailA notice={notice}><Content /></DetailA></div>
   <div class="theme-block t-b"><DetailB notice={notice}><Content /></DetailB></div>
   <div class="theme-block t-c"><DetailC notice={notice}><Content /></DetailC></div>
