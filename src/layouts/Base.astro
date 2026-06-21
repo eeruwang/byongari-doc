@@ -5,12 +5,15 @@ import { site } from '../data/site';
 interface Props {
   title?: string;
   description?: string;
+  ogImage?: string;
 }
 const {
   title,
   description = '작고 다정한 미스키 체리픽 서버 뵹아리의 공지·안내 사이트',
+  ogImage = '/og/default.png',
 } = Astro.props;
 const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.nameEn}`;
+const ogImageUrl = new URL(ogImage, Astro.site ?? Astro.url).href;
 ---
 
 <!doctype html>
@@ -25,6 +28,11 @@ const pageTitle = title ? `${title} · ${site.name}` : `${site.name} · ${site.n
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImageUrl} />
     <meta name="theme-color" content="#46AEA6" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
