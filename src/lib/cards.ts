@@ -22,7 +22,7 @@ function chick(size: number): string {
 }
 
 function pill(text: string, color: string, bg: string): string {
-  return `<div style="display:flex;font-family:'Jua';font-size:22px;color:${color};background:${bg};padding:13px 24px;border-radius:999px">${esc(text)}</div>`;
+  return `<div style="display:flex;align-items:center;justify-content:center;line-height:1;font-family:'Jua';font-size:22px;color:${color};background:${bg};padding:13px 24px;border-radius:999px">${esc(text)}</div>`;
 }
 
 /** HTML 특수문자 이스케이프 */
@@ -34,11 +34,11 @@ function esc(s: string): string {
 export function inviteCard(): string {
   return `
   <div style="width:1200px;height:630px;background:#46AEA6;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:56px;font-family:'Gowun Dodum'">
-    <div style="display:flex;font-family:'Jua';font-size:22px;color:#2E8C86;background:#F4C64A;padding:9px 22px;border-radius:999px">미스키 체리픽 서버</div>
-    <div style="display:flex;font-family:'Jua';font-size:84px;color:#ffffff;margin-top:22px;text-shadow:0 4px 0 rgba(0,0,0,0.1)">삐약삐약 모이는 곳</div>
+    <div style="display:flex;align-items:center;justify-content:center;line-height:1;font-family:'Jua';font-size:22px;color:#2E8C86;background:#F4C64A;padding:9px 22px;border-radius:999px">미스키 체리픽 서버</div>
+    <div style="display:flex;font-family:'Jua';font-size:84px;line-height:1.1;color:#ffffff;margin-top:22px;text-shadow:0 4px 0 rgba(0,0,0,0.1)">삐약삐약 모이는 곳</div>
     <div style="display:flex;max-width:840px;font-family:'Gowun Dodum';font-size:25px;line-height:1.55;color:#EAF6EC;margin-top:16px;text-align:center">천천히 흐르는 타임라인, 다정한 사람들이 모인 작은 둥지예요.</div>
     <div style="display:flex;margin-top:30px">
-      <div style="display:flex;font-family:'Jua';font-size:26px;color:#ffffff;background:#EC5B41;padding:16px 34px;border-radius:999px;box-shadow:0 6px 0 #c8462f">가입 신청하기</div>
+      <div style="display:flex;align-items:center;justify-content:center;line-height:1;font-family:'Jua';font-size:26px;color:#ffffff;background:#EC5B41;padding:16px 34px;border-radius:999px;box-shadow:0 6px 0 #c8462f">가입 신청하기</div>
     </div>
     <div style="display:flex;gap:14px;margin-top:32px;align-items:flex-end">
       ${chick(58)}${chick(72)}${chick(58)}
@@ -59,12 +59,12 @@ export function noticeCard(notice: Notice): string {
   return `
   <div style="width:1200px;height:630px;background:#EC5B41;padding:68px 72px;display:flex;flex-direction:column;justify-content:center;position:relative;font-family:'Jua'">
     <div style="display:flex;align-items:center;gap:14px">
-      <div style="display:flex;font-family:'Jua';font-size:21px;color:#EC5B41;background:#ffffff;padding:9px 20px;border-radius:999px">${esc(d.category)}</div>
-      <div style="display:flex;font-family:'Jua';font-size:21px;color:#ffffff;opacity:0.92">${date}</div>
+      <div style="display:flex;align-items:center;justify-content:center;line-height:1;font-family:'Jua';font-size:21px;color:#EC5B41;background:#ffffff;padding:9px 20px;border-radius:999px">${esc(d.category)}</div>
+      <div style="display:flex;align-items:center;line-height:1;font-family:'Jua';font-size:21px;color:#ffffff;opacity:0.92">${date}</div>
     </div>
     <div style="display:flex;max-width:1010px;font-family:'Jua';font-size:66px;line-height:1.15;color:#ffffff;margin-top:20px;text-shadow:0 3px 0 rgba(0,0,0,0.1)">${esc(d.title)}</div>
-    ${pills ? `<div style="display:flex;gap:12px;margin-top:28px;flex-wrap:wrap">${pills}</div>` : ''}
-    <div style="display:flex;position:absolute;right:60px;bottom:44px;font-family:'Jua';font-size:24px;color:#ffffff;opacity:0.9">${esc(site.name)} · byongari.com</div>
+    ${pills ? `<div style="display:flex;align-items:center;gap:12px;margin-top:28px;flex-wrap:wrap">${pills}</div>` : ''}
+    <div style="display:flex;align-items:center;line-height:1;position:absolute;right:60px;bottom:44px;font-family:'Jua';font-size:24px;color:#ffffff;opacity:0.9">${esc(site.name)} · byongari.com</div>
   </div>`;
 }
 
@@ -80,9 +80,9 @@ export function eventCard(notice: Notice): string {
     <div style="position:absolute;top:50px;right:90px;width:20px;height:20px;border-radius:50%;background:#EC5B41"></div>
     <div style="position:absolute;top:130px;right:180px;width:16px;height:16px;border-radius:4px;background:#46AEA6;transform:rotate(18deg)"></div>
     <div style="position:absolute;bottom:70px;left:60px;width:16px;height:16px;border-radius:50%;background:#2E5FC6"></div>
-    <div style="display:flex;font-family:'Jua';font-size:22px;color:#ffffff;background:#EC5B41;padding:10px 22px;border-radius:999px">EVENT</div>
+    <div style="display:flex;align-items:center;justify-content:center;line-height:1;font-family:'Jua';font-size:22px;color:#ffffff;background:#EC5B41;padding:10px 22px;border-radius:999px">EVENT</div>
     <div style="display:flex;max-width:1010px;font-family:'Jua';font-size:74px;line-height:1.12;color:#3c2f0a;margin-top:18px">${esc(d.title)}</div>
     ${sub ? `<div style="display:flex;max-width:1010px;font-family:'Gowun Dodum';font-size:24px;line-height:1.5;color:#6b5a2e;margin-top:16px">${esc(sub)}</div>` : ''}
-    <div style="display:flex;gap:12px;margin-top:26px;flex-wrap:wrap">${pills}</div>
+    <div style="display:flex;align-items:center;gap:12px;margin-top:26px;flex-wrap:wrap">${pills}</div>
   </div>`;
 }
