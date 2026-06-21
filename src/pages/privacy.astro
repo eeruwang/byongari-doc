@@ -1,0 +1,173 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+
+const email = site.links.contact.replace('mailto:', '');
+const effectiveDate = '2026년 6월 21일';
+---
+
+<Base title="개인정보처리방침">
+  <article class="policy view">
+    <div class="back-bar"><a class="back" href="/">← 메인으로</a></div>
+
+    <h1 class="title">개인정보처리방침</h1>
+    <p class="lead">
+      {site.name}(byongari, 이하 ‘서버’)는 이용자의 개인정보를 소중히 여기며, 아래와 같이
+      개인정보를 수집·이용·보관합니다.
+    </p>
+
+    <section>
+      <h2>1. 수집하는 정보</h2>
+      <ul>
+        <li><b>가입 시</b>: 이메일 주소, 사용자명(ID), 비밀번호(암호화 저장), 닉네임 등 프로필 정보</li>
+        <li><b>이용 중</b>: 게시물·미디어·리액션·팔로우 관계 등 활동 정보</li>
+        <li><b>자동 수집</b>: 접속 IP, 브라우저·기기 정보, 접속 일시 등 로그</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>2. 이용 목적</h2>
+      <ul>
+        <li>계정 생성 및 서비스 제공</li>
+        <li>서버 운영·보안, 오류 대응, 악용·스팸 방지</li>
+        <li>규칙 위반 신고의 확인 및 처리</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>3. 연합(페디버스) 안내</h2>
+      <p>
+        본 서버는 ActivityPub 기반으로 다른 서버와 연합(federation)됩니다. 게시물의 공개 범위에 따라
+        게시물·프로필 정보가 다른 서버로 전송·복제될 수 있으며, 한 번 외부로 전파된 정보는 본 서버에서
+        완전한 삭제를 보장하기 어렵습니다. 민감한 내용은 공개 범위를 신중히 선택해 주세요.
+      </p>
+    </section>
+
+    <section>
+      <h2>4. 쿠키 및 로컬 저장소</h2>
+      <p>
+        로그인 유지와 환경설정 저장 등을 위해 쿠키와 브라우저 로컬 저장소를 사용합니다. 이 안내
+        사이트(notice.byongari.com)는 테마 설정을 브라우저에 저장하는 것 외에 별도의 추적을 하지 않습니다.
+      </p>
+    </section>
+
+    <section>
+      <h2>5. 제3자 서비스</h2>
+      <p>서비스 운영을 위해 아래 외부 서비스를 이용하며, 각 서비스는 자체 개인정보처리방침을 따릅니다.</p>
+      <ul>
+        <li><b>호스팅·인프라</b>: Cloudflare</li>
+        <li><b>서버 상태</b>: watch.byongari.com</li>
+        <li>
+          <b>후원</b>: Ko-fi 및 결제 처리사(Stripe). 후원 시 결제 정보는 해당 결제사가 처리하며,
+          서버는 카드 정보를 저장하지 않습니다.
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>6. 보관 및 백업</h2>
+      <p>
+        데이터는 서비스 제공 기간 동안 보관되며, 매주 정기적으로 백업되고 외부 저장소에도 별도 보관됩니다.
+        백업본은 일정 기간 후 순차적으로 삭제됩니다.
+      </p>
+    </section>
+
+    <section>
+      <h2>7. 이용자의 권리</h2>
+      <p>
+        이용자는 본인 정보의 열람·수정, 게시물 삭제, 계정 탈퇴를 직접 할 수 있습니다. 계정을 삭제하면
+        서버 내 정보는 삭제되지만, 이미 연합으로 전파된 공개 게시물은 다른 서버의 정책에 따라 남아 있을 수
+        있습니다.
+      </p>
+    </section>
+
+    <section>
+      <h2>8. 보안</h2>
+      <p>비밀번호는 복호화할 수 없는 형태로 저장하며, 모든 통신은 HTTPS로 암호화합니다.</p>
+    </section>
+
+    <section>
+      <h2>9. 미성년자</h2>
+      <p>관련 법령과 서버 규칙에 따라 일정 연령 미만의 가입을 제한할 수 있습니다.</p>
+    </section>
+
+    <section>
+      <h2>10. 방침 변경</h2>
+      <p>본 방침은 사정에 따라 변경될 수 있으며, 중요한 변경은 공지사항으로 안내합니다.</p>
+    </section>
+
+    <section>
+      <h2>11. 문의</h2>
+      <p>개인정보 관련 문의는 <a href={site.links.contact}>{email}</a> 으로 보내주세요.</p>
+    </section>
+
+    <p class="effective">시행일: {effectiveDate}</p>
+  </article>
+</Base>
+
+<style>
+  .policy {
+    background: var(--cream-a);
+    padding: 20px 28px 56px;
+  }
+  .back-bar {
+    padding: 0 0 8px;
+  }
+  .back {
+    font-family: 'Jua', sans-serif;
+    font-size: 14px;
+    color: var(--ink-soft2);
+  }
+  .title {
+    font-family: 'Jua', sans-serif;
+    font-weight: 400;
+    font-size: 28px;
+    color: var(--ink);
+    margin: 12px 0 10px;
+  }
+  .lead {
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    margin: 0 0 8px;
+  }
+  section {
+    margin-top: 26px;
+  }
+  h2 {
+    font-family: 'Jua', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color: var(--coral);
+    margin: 0 0 8px;
+  }
+  p {
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+  ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+  li {
+    font-size: 15px;
+    line-height: 1.8;
+    color: var(--ink-soft);
+    margin-bottom: 4px;
+  }
+  b {
+    color: var(--ink);
+  }
+  a {
+    color: var(--teal-deep);
+    text-decoration: underline;
+  }
+  .effective {
+    margin-top: 32px;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 13px;
+    color: var(--muted);
+  }
+</style>

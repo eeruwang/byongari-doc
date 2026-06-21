@@ -173,7 +173,10 @@ const staffFg = ['#3c4a3f', '#fff', '#fff'];
       <a class="btn-teal sm" href={site.links.status}>서버 상태</a>
     </div>
     <div class="status-row"><StatusBadge theme="light" /></div>
-    <div class="copyright">{site.name} · 작은 둥지에서 · {site.nameEn} · since {site.status.since}</div>
+    <div class="copyright">
+      {site.name} · 작은 둥지에서 · {site.nameEn} · since {site.status.since}<br />
+      <a href="/privacy">개인정보처리방침</a>
+    </div>
   </section>
 </div>
 
@@ -608,5 +611,10 @@ const staffFg = ['#3c4a3f', '#fff', '#fff'];
     font-size: 12px;
     color: var(--muted);
     margin-top: 14px;
+    line-height: 1.9;
+  }
+  .copyright a {
+    color: inherit;
+    text-decoration: underline;
   }
 </style>

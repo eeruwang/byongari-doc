@@ -151,7 +151,10 @@ const staffColors = ['#F4C64A', '#9BD3CB', '#F3B0A0'];
       <a href={site.links.status}>서버 상태</a>
     </div>
     <div class="status-row"><StatusBadge theme="dark" /></div>
-    <div class="copyright">{site.name} · {site.nameEn} — a small Misskey server · since {site.status.since}</div>
+    <div class="copyright">
+      {site.name} · {site.nameEn} — a small Misskey server · since {site.status.since}<br />
+      <a href="/privacy">개인정보처리방침</a>
+    </div>
   </footer>
 </div>
 
@@ -451,5 +454,10 @@ const staffColors = ['#F4C64A', '#9BD3CB', '#F3B0A0'];
     font-size: 12px;
     color: #7e857a;
     margin-top: 12px;
+    line-height: 1.9;
+  }
+  .copyright a {
+    color: inherit;
+    text-decoration: underline;
   }
 </style>
