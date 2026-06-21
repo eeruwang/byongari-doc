@@ -2,7 +2,6 @@
 import { site } from '../../data/site';
 import { fmtShort, type Notice } from '../../lib/notices';
 import Avatar from '../Avatar.astro';
-import StatusBadge from '../StatusBadge.astro';
 
 interface Props {
   recent: Notice[];
@@ -143,19 +142,6 @@ const staffColors = ['#F4C64A', '#9BD3CB', '#F3B0A0'];
     </div>
   </section>
 
-  {/* footer */}
-  <footer class="foot">
-    <div class="foot-links">
-      <a class="fl-accent" href={site.links.signup}>가입하기</a>
-      <a href={site.links.contact}>문의</a>
-      <a href={site.links.status}>서버 상태</a>
-    </div>
-    <div class="status-row"><StatusBadge theme="dark" /></div>
-    <div class="copyright">
-      {site.name} · {site.nameEn} — a small Misskey server · since {site.status.since}<br />
-      <a href="/privacy">개인정보처리방침</a> · <a href="/terms">이용약관</a>
-    </div>
-  </footer>
 </div>
 
 <style>

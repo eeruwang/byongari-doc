@@ -1,0 +1,163 @@
+---
+import { site } from '../data/site';
+import StatusBadge from './StatusBadge.astro';
+---
+
+{/* 사이트 전 페이지 공통 푸터 — 테마별로 전환 */}
+<div class="theme-block t-a">
+  <footer class="foot foot-a">
+    <div class="links">
+      <a class="b-yellow" href={site.links.signup}>가입하기</a>
+      <a class="b-blue" href={site.links.contact}>문의</a>
+      <a class="b-teal" href={site.links.status}>서버 상태</a>
+    </div>
+    <div class="status"><StatusBadge theme="light" /></div>
+    <div class="copy">
+      {site.name} · 작은 둥지에서 · {site.nameEn} · since {site.status.since}<br />
+      <a href="/privacy">개인정보처리방침</a> · <a href="/terms">이용약관</a>
+    </div>
+  </footer>
+</div>
+
+<div class="theme-block t-b">
+  <footer class="foot foot-b">
+    <div class="links">
+      <a class="accent" href={site.links.signup}>가입하기</a>
+      <a href={site.links.contact}>문의</a>
+      <a href={site.links.status}>서버 상태</a>
+    </div>
+    <div class="status"><StatusBadge theme="dark" /></div>
+    <div class="copy">
+      {site.name} · {site.nameEn} — a small Misskey server · since {site.status.since}<br />
+      <a href="/privacy">개인정보처리방침</a> · <a href="/terms">이용약관</a>
+    </div>
+  </footer>
+</div>
+
+<div class="theme-block t-c">
+  <footer class="foot foot-c">
+    <div class="links">
+      <a class="fl-yellow" href={site.links.signup}>가입하기</a>
+      <a class="fl-blue" href={site.links.contact}>문의</a>
+      <a class="fl-white" href={site.links.status}>서버 상태</a>
+    </div>
+    <div class="status"><StatusBadge theme="dark" /></div>
+    <div class="copy">
+      {site.name} · {site.nameEn} · since {site.status.since}<br />
+      <a href="/privacy">개인정보처리방침</a> · <a href="/terms">이용약관</a>
+    </div>
+  </footer>
+</div>
+
+<style>
+  .foot {
+    width: 100%;
+  }
+  .status {
+    display: flex;
+    justify-content: center;
+    margin-top: 18px;
+  }
+  .copy {
+    text-align: center;
+    font-family: 'Fredoka', sans-serif;
+    font-size: 12px;
+    margin-top: 14px;
+    line-height: 1.9;
+  }
+  .copy a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  /* 테마 A — 그림책 */
+  .foot-a {
+    background: var(--cream-a);
+    padding: 30px 28px 40px;
+  }
+  .foot-a .links {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .foot-a .links a {
+    font-family: 'Jua', sans-serif;
+    font-size: 14px;
+    padding: 10px 18px;
+    border-radius: 999px;
+  }
+  .foot-a .b-yellow {
+    color: #3c4a3f;
+    background: var(--yellow);
+    box-shadow: 0 3px 0 var(--yellow-shadow);
+  }
+  .foot-a .b-blue {
+    color: #fff;
+    background: var(--discord);
+    box-shadow: 0 3px 0 var(--discord-shadow);
+  }
+  .foot-a .b-teal {
+    color: #fff;
+    background: var(--teal);
+    box-shadow: 0 3px 0 var(--teal-deep);
+  }
+  .foot-a .copy {
+    color: var(--muted);
+  }
+
+  /* 테마 B — 미니멀 */
+  .foot-b {
+    background: var(--ink2);
+    padding: 34px;
+  }
+  .foot-b .links {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .foot-b .links a {
+    font-size: 14px;
+    color: #cfd3c8;
+  }
+  .foot-b .links a.accent {
+    color: var(--yellow);
+  }
+  .foot-b .copy {
+    color: #7e857a;
+  }
+
+  /* 테마 C — 팝 */
+  .foot-c {
+    background: var(--teal);
+    padding: 34px 28px;
+  }
+  .foot-c .links {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .foot-c .links a {
+    font-family: 'Jua', sans-serif;
+    font-size: 14px;
+    padding: 10px 18px;
+    border-radius: 999px;
+  }
+  .foot-c .fl-yellow {
+    color: var(--teal);
+    background: var(--yellow);
+  }
+  .foot-c .fl-blue {
+    color: #fff;
+    background: var(--discord);
+  }
+  .foot-c .fl-white {
+    color: var(--teal);
+    background: #fff;
+  }
+  .foot-c .copy {
+    color: #d7efeb;
+  }
+</style>
